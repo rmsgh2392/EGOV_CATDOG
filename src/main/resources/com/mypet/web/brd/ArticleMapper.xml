@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.mypet.web.brd.ArticleMapper">
+    	<insert id="insertArticle" parameterType="Articles">
+        INSERT INTO ARTICLES (CID, RATING, BOARD_TYPE, TITLE, CONTENT) values (
+           #{cid}, #{rating}, #{boardType}, #{title}, #{content})
+    	</insert>
+    	
+    	<select id="countArticle" resultType="string">
+    		SELECT COUNT(*) FROM ARTICLES
+    	</select>
+    	<!-- as 뒤에는 자바랑 똑같이 해줘야한다. 자바의 변수들은 언더바를 안하기 떄문에 alias를 주어서 자바랑 같게 해준다. -->
+    	<select id="selectAllArticle" resultType="Articles" parameterType="Proxy">
+    		SELECT A.BOARD_TYPE AS boardType, A.* FROM
+			(SELECT * FROM ARTICLES
+			order by ARTICLESEQ DESC) A
+			LIMIT #{startRow}, #{pageSize}
+    	</select>
+    	
+    	<select id="deleteArticle" parameterType="Articles">
+    		DELETE 
+			FROM ARTICLES
+			WHERE ARTICLESEQ LIKE #{articleseq}
+    	</select>
+    	<select id="updateArticle" resultType="Articles">
+    	UPDATE ARTICLES
+		SET TITLE = #{title}, CONTENT = #{content}
+		WHERE ARTICLESEQ LIKE #{articleseq}
+    	</select>
+    	
+    	<select id="getArticle" resultType="Articles">
+    		SELECT * FROM ARTICLES
+    		WHERE ARTICLESEQ LIKE #{articleseq}
+    	</select>
+    </mapper>
