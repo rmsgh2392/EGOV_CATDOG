@@ -14,6 +14,7 @@ import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mypet.web.brd.ArticleMapper;
 import com.mypet.web.cmm.ISupplier;
@@ -117,15 +118,14 @@ public class Proxy {
 	public String setSsn() {
 		String ssn = "";
         int[] maxDays = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-        
         int iMinMonth = 1;
         int iMaxMonth = 12;
-        
         int iRandomMonth = (int)(Math.random() * iMaxMonth - iMinMonth + 1) + iMinMonth;
         int iRandomDay = (int)(Math.random() * (maxDays[iRandomMonth-1] -2) + 1);
         return  ssn;
     }
 	public String makeUserid() {
+//		List<String> id = Arrays.asList("a","b","c","d","e","f","g","");
 		return "";	
 	}
 	public String userPhone() {
@@ -172,4 +172,11 @@ public class Proxy {
 					   		   userEmail(),
 					   		   setpetType());
 	}
+	@Transactional
+	public void insertUsers() {
+		for(int i=0;i<500; i++) {
+			
+		}
+	}
+	
 }
