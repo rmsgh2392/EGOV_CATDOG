@@ -29,5 +29,5 @@ public class RootConfig {
 	public DataSourceTransactionManager txManger() {
 		return new DataSourceTransactionManager(dataSource());
 	}
-
+	
 }
