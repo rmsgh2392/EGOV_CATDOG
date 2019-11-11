@@ -1,6 +1,6 @@
 var adm = adm || {}
 adm = (()=>{
-	let _, js, css, img, navi_js, navi_vue_js, brd_vue_js
+	let _, js, css, img, navi_js, navi_vue_js, brd_vue_js,custmgt_vue_js
 	let init=()=>{
 		_ = $.ctx()
 		js = $.js()
@@ -8,14 +8,16 @@ adm = (()=>{
 		img = $.img()
 		navi_js = js+'/cmm/navi.js'
 		navi_vue_js = js+'/vue/navi_vue.js'
-		brd_vue_js = js+'/brd/brd_vue.js'
+		brd_vue_js = js+'/vue/brd_vue.js'
+		custmgt_vue_js = js+'/vue/custmgt_vue.js'
 	}
 	let onCreate = () => {
 		alert('환영합니다')
 		init()
 		$.when(
 				$.getScript(navi_js),
-				$.getScript(navi_vue_js)
+				$.getScript(navi_vue_js),
+				$.getScript(custmgt_vue_js)
 		).done(()=>{
 			setContentView()
 		}).fail(()=>{
@@ -40,6 +42,7 @@ adm = (()=>{
 //		let arr = ['고객관리','상품등록','상품조회','상품관리','상품삭제']  //제이슨!!!
 		$.each([
 			{text:'맵크롤링',name:'web_crawl'},
+			{text:'고객관리',name:'cust_mgnt'},
 			{text:'상품등록',name:'Item_reg'},
 			{text:'상품조회',name:'Item_srch'},
 			{text:'상품수정',name:'Item_mod'},
@@ -56,6 +59,9 @@ adm = (()=>{
 				switch($(this).attr('name')){
 				case'web_crawl' : 
 					webCrawl()
+					break;
+				case'cust_mgnt' :
+					cust_mgnt()
 					break;
 				case'Item_reg' : 
 					break;
@@ -144,6 +150,65 @@ adm = (()=>{
 //			}
 //		})
 	
+	}
+	let cust_mgnt =()=>{
+		$('#right').empty()
+		$('<a>데이터베이스 생성</a><br>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/cmm/create/db',d=>{
+			alert('테이블 생성 성공여부'+d.msg)
+			})
+		})
+		
+		$('#right').empty()
+		$('<a>고객 테이블 생성</a><br>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/users/create/table',d=>{
+			alert('테이블 생성 성공여부'+d.msg)
+			})
+		})
+		$('<a>강아지 테이블 생성</a><br>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/users/create/dogtable',d=>{
+			alert('테이블 생성 성공여부'+d.msg)
+			})
+		})
+
+		$('<a>강아지 테이블 삭제</a><br>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/users/delete/dogtable',d=>{
+			alert('테이블 삭제 성공여부'+d.msg)
+			})
+		})
+		
+//		$('#right').empty()
+		$('<a>고객 테이블 삭제</a><br>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/users/drop/table',d=>{
+			alert('테이블 삭제 성공 여부'+d.msg)
+			})
+		})
+//		$('#right').empty()
+		$('<a>고객 대량정보 입력</a><br>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/tx/register/users',d=>{
+			alert('고객수'+d.userCount)
+			})
+		})
+//		$('#right').empty()
+//		.append(custmgt_vue.cusmgt())
 	}
 	return {onCreate}
 })()

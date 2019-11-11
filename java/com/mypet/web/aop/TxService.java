@@ -9,12 +9,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mypet.web.pxy.Proxy;
+import com.mypet.web.user.User;
+import com.mypet.web.user.UserMapper;
 
-@Transactional
+
 @Service
 public class TxService {
-	@Autowired TxMapper mapper;
+	@Autowired TxMapper txmapper;
 	@Autowired Proxy pxy;
+	@Autowired UserMapper customerMapper;
 //	@Autowired List<String> txServicelist;
 	
 	
@@ -24,6 +27,17 @@ public class TxService {
 		txServicelist.clear();
 		txServicelist = (List<String>) pxy.crwal(paramMap);
 		return txServicelist;
+	}
+
+
+	@Transactional   //쿼리문 중복실행되는 곳에만 이렇게 어노테이션 걸어라!
+	public int registerUsers() {
+		List<User> list = new ArrayList<>();
+		for(User c:list) {
+			txmapper.insertUsers(c);
+		}
+		
+		return customerMapper.countUsers();
 	}
 	
 }

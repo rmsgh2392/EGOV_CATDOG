@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.mypet.web.cus.Customer;
 import com.mypet.web.pxy.Proxy;
+import com.mypet.web.user.User;
 
 @Repository
 public interface ArticleMapper {

@@ -1,4 +1,4 @@
-package com.mypet.web.cus;
+package com.mypet.web.user;
 
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Component
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer{
-	private String cid,pwd,ssn,creditcard,pname,phone,address,email;
+public class User{
+	private String uid,pwd,ssn,uname,phone,address,email,petType;
 
 
 }

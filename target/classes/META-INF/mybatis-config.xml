@@ -5,7 +5,7 @@
        <setting  name="mapUnderscoreToCamelCase"  value="true"/>
     </settings>
     <typeAliases>
-       <typeAlias alias="Customer"  type="com.mypet.web.cus.Customer"/>
+       <typeAlias alias="User"  type="com.mypet.web.user.User"/>
        <typeAlias alias="Article"  type="com.mypet.web.brd.Article"/>
        <typeAlias alias="Admin"  type="com.mypet.web.adm.Admin"/>
        <typeAlias alias="Proxy"  type="com.mypet.web.pxy.Proxy"/>
