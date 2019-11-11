@@ -6,7 +6,7 @@
     </settings>
     <typeAliases>
        <typeAlias alias="User"  type="com.mypet.web.usr.User"/>
-       <typeAlias alias="Article"  type="com.mypet.web.brd.Article"/>
+       <typeAlias alias="Articles"  type="com.mypet.web.brd.Articles"/>
        <typeAlias alias="Admin" type="com.mypet.web.adm.Admin"/>
        <typeAlias alias="Proxy" type="com.mypet.web.pxy.Proxy"/>
     </typeAliases>
