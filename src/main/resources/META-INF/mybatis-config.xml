@@ -5,8 +5,13 @@
        <setting  name="mapUnderscoreToCamelCase"  value="true"/>
     </settings>
     <typeAliases>
+<<<<<<< HEAD
        <typeAlias alias="User"  type="com.mypet.web.usr.User"/>
        <typeAlias alias="Articles"  type="com.mypet.web.brd.Articles"/>
+=======
+       <typeAlias alias="Customer"  type="com.mypet.web.cus.Customer"/>
+       <typeAlias alias="Article"  type="com.mypet.web.brd.Article"/>
+>>>>>>> 477b340027fb1dbd3ad9ddeb549b90ce575782c4
        <typeAlias alias="Admin"  type="com.mypet.web.adm.Admin"/>
        <typeAlias alias="Proxy"  type="com.mypet.web.pxy.Proxy"/>
     </typeAliases>

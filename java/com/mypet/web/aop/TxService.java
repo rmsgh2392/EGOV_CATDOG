@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mypet.web.pxy.Proxy;
+<<<<<<< HEAD
 import com.mypet.web.usr.User;
 import com.mypet.web.usr.UserMapper;
 import com.mypet.web.util.Printer;
@@ -38,4 +39,23 @@ public class TxService {
 		int userCount = userMapper.countUsers();
 		return userCount;
 	}
+=======
+
+@Transactional
+@Service
+public class TxService {
+	@Autowired TxMapper mapper;
+	@Autowired Proxy pxy;
+//	@Autowired List<String> txServicelist;
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<?> crawling(Map<?,?> paramMap){
+		List<String> txServicelist = new ArrayList<>();
+		txServicelist.clear();
+		txServicelist = (List<String>) pxy.crwal(paramMap);
+		return txServicelist;
+	}
+	
+>>>>>>> 477b340027fb1dbd3ad9ddeb549b90ce575782c4
 }

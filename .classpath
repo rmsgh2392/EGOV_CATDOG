@@ -21,5 +21,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="C:/Users/bit/sts/eGovFrame-3.8/lombok.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

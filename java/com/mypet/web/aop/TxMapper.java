@@ -1,5 +1,6 @@
 package com.mypet.web.aop;
 
+<<<<<<< HEAD
 import org.apache.ibatis.annotations.Insert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,4 +13,13 @@ public interface TxMapper {
 			"#{uid}, #{pwd},#{ssn},#{uname},#{phone},#{address},#{email},#{petType})")
 	public void insertUser(User param);
 	
+=======
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+@Repository
+@Transactional
+public class TxMapper {
+
+>>>>>>> 477b340027fb1dbd3ad9ddeb549b90ce575782c4
 }

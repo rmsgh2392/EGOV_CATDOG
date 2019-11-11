@@ -7,4 +7,8 @@ function getCookie(name) {
 }
 function deleteCookie() {
     document.cookie = "";
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 477b340027fb1dbd3ad9ddeb549b90ce575782c4
