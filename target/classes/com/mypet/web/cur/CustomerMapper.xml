@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.mypet.web.cur.CustomerMapper">
+
+		<select id="createDB" parameterType="hashmap">
+		${CREATE_DB}  <!-->$ 처리하면 문자 그대로 쿼리처리</!-->
+	</select>
+	<select id="createCustomer" parameterType="map">
+		${CREATE_TABLE}  <!-->$ 처리하면 문자 그대로 쿼리처리</!-->
+	</select>
+		<select id="dropCustomer" parameterType="map">
+		${DROP_TABLE}  
+	</select>
+    <select id="selectCustomerById" resultType="Customer">
+       SELECT *
+       FROM CUSTOMER
+	   WHERE CID LIKE #{cid}
+    </select>
+    <select id="countCustomers" resultType="int">
+       SELECT COUNT(*)
+       FROM CUSTOMER
+    </select>
+    <insert id="insertCustomer" parameterType="Customer">
+        INSERT INTO CUSTOMER (CID,PWD,SSN,CREDITCARD,PNAME,PHONE,ADDRESS,EMAIL) values (
+            #{cid}, #{pwd},#{ssn},#{creditcard},#{pname},#{phone},#{address},#{email})
+    </insert>
+    <select id="existId"  resultType="int">
+    	SELECT COUNT(*) CT FROM CUSTOMER WHERE CID LIKE #{cid}
+    </select>
+</mapper>

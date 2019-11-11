@@ -19,7 +19,7 @@ public class RootConfig {
 	public DataSource dataSource() {
 		HikariConfig hikarConfig = new HikariConfig();
 		hikarConfig.setDriverClassName("org.mariadb.jdbc.Driver");
-		hikarConfig.setJdbcUrl("jdbc:mariadb://172.168.0.150:3306/mysql");
+		hikarConfig.setJdbcUrl("jdbc:mariadb://172.168.0.150:3306/mypet");
 		hikarConfig.setUsername("catdog");
 		hikarConfig.setPassword("catdog");
 		HikariDataSource dataSource = new HikariDataSource(hikarConfig);
@@ -29,5 +29,5 @@ public class RootConfig {
 	public DataSourceTransactionManager txManger() {
 		return new DataSourceTransactionManager(dataSource());
 	}
-	
+
 }
