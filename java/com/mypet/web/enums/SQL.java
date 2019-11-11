@@ -1,13 +1,11 @@
 package com.mypet.web.enums;
 
 public enum SQL {
-	CREATE_USER, DROP_USER,CREATE_DB,CREATE_ADMIN;
-	
+	CREATE_USER, DROP_USER,CREATE_DB,CREATE_ADMIN,CREATE_CAT,DROP_CAT;
 	@Override
 	public String toString() {
 		String result = "";
 		switch (this) {
-//		private String uid,pwd,ssn,uname,phone,address,email,petType;
 		case CREATE_USER:
 			result = "CREATE TABLE USER("
 					+ "UID VARCHAR(30) PRIMARY KEY,"
@@ -26,7 +24,6 @@ public enum SQL {
 			result= "CREATE DATABASE MYPET";
 			break;
 		case CREATE_ADMIN:
-//			aid,pwd,ssn,pname,phone,address,email
 			result = "CREATE TABLE ADMIN("
 					+ "AID VARCHAR(30) PRIMARY KEY,"
 					+ "PWD VARCHAR(30),"
@@ -36,8 +33,22 @@ public enum SQL {
 					+ "EMAIL VARCHAR(30),"
 					+ "ADDRESS VARCHAR(30))";
 			break;
+		case CREATE_CAT :
+			result = "CREATE TABLE CAT("
+					+ "BIRTH DATE,"
+					+ "SEX VARCHAR(6),"
+					+ "NAME VARCHAR(21),"
+					+ "HAIRLENGTH VARCHAR(6),"
+					+ "HAIRCOLOR VARCHAR(9),"
+					+ "SPECIES VARCHAR(30),"
+					+ "SIZE VARCHAR(9),"
+					+ "STYLE VARCHAR(21),"
+					+ "ILLHISTORY VARCHAR(60))";
+			break;
+		case DROP_CAT :
+			result = "DROP TABLE CAT";
+			break;
 		}
 		return result;
 	}
-	
 }

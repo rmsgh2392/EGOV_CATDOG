@@ -1,5 +1,8 @@
 package com.mypet.web.cmm;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -11,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.RequestAttribute;
+
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,12 +28,14 @@ import com.mypet.web.usr.UserMapper;
 @Controller
 public class CommonCtrl {
 	@Autowired UserMapper userMapper;
+	
 	private static final Logger logger = LoggerFactory.getLogger(CommonCtrl.class);
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String facade(Locale locale, Model model) {
-		logger.info("역시 갓 대한민국");
+	public String home(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
 		return "index";
 	}
+
 	
 	@RequestMapping(value="/cmm/create/db")//get방식은 디폴트라 생략 가능 method = RequestMethod.GET)
 	public @ResponseBody Map<?,?> createCatdogdb(){//@ResponseBody를 쓰면 이 메서드만 rest방식으로 바뀐다.
@@ -40,5 +48,5 @@ public class CommonCtrl {
 		paramMap.put("msg","success");
 		return paramMap;
 	}
-		
 }
+

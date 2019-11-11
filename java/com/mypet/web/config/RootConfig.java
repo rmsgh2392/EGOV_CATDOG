@@ -29,6 +29,4 @@ public class RootConfig {
 	public DataSourceTransactionManager txManger() {
 		return new DataSourceTransactionManager(dataSource());
 	}
-//역시 갓정욱
-
 }

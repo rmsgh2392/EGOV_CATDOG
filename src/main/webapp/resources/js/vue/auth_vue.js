@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 "use strict"
 var auth_vue = auth_vue || {}
 auth_vue = {
@@ -13,6 +14,11 @@ var auth_vue = auth_vue || {}
 auth_vue = {
 	join_head:()=>{
 >>>>>>> 477b340027fb1dbd3ad9ddeb549b90ce575782c4
+=======
+var auth_vue = auth_vue || {}
+auth_vue = {
+	join_head:()=>{
+>>>>>>> taemin
 		return '<head>'+
         '    <meta charset="utf-8">'+
         '    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">'+
@@ -43,10 +49,14 @@ auth_vue = {
         '  </head>'
 	},
 <<<<<<< HEAD
+<<<<<<< HEAD
 	join_body : ()=>{
 =======
 	join_body: ()=>{
 >>>>>>> 477b340027fb1dbd3ad9ddeb549b90ce575782c4
+=======
+	join_body: ()=>{
+>>>>>>> taemin
 		return '<div class="container" >'+
         '  <div class="py-5 text-center">'+
         '    <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">'+
@@ -103,10 +113,14 @@ auth_vue = {
         '    </div>'+
         '    <div class="col-md-8 order-md-1">'+
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> taemin
         '      <h4 class="mb-3">회원가입</h4>'+
         '      <form class="needs-validation" novalidate="">'+
         '        <div class="row">'+
         '          <div class="col-md-6 mb-3">'+
+<<<<<<< HEAD
         '            <label for="cid">CUSTOMERID</label>'+
         '            <input type="text" class="form-control" id="uid" placeholder="" value="" required="">'+
 =======
@@ -164,10 +178,41 @@ auth_vue = {
 >>>>>>> 477b340027fb1dbd3ad9ddeb549b90ce575782c4
         '            <div class="invalid-feedback" style="width: 100%;">'+
         '              Your username is required.'+
+=======
+        '            <label for="uid">USERID</label>'+
+        '            <input type="text" class="form-control" id="uid" placeholder="" value="" required="">'+
+        '            <div class="invalid-feedback">'+
+        '              Valid uid is required.'+
+        '            </div>'+
+        '          </div>'+
+        '          <div class="col-md-6 mb-3">'+
+        '            <label for="pwd">ID중복체크</label>'+
+        '            <input type="text" class="form-control" id="dupl_check" placeholder="" value="" required="">'+
+        '            <div class="invalid-feedback">'+
+        '              Valid pwd is required.'+
         '            </div>'+
         '          </div>'+
         '        </div>'+
         '        <div class="mb-3">'+
+        '          <label for="password">비밀번호 <span class="text-muted">(Optional)</span></label>'+
+        '          <input type="text" class="form-control" id="pwd" placeholder="Apartment or suite">'+
+        '        </div>'+
+        '        <div class="mb-3">'+
+        '          <label for="pname">Username</label>'+
+        '          <input type="text" class="form-control" id="pname" placeholder="" value="" required="">'+
+        '            <div class="invalid-feedback">'+
+        '              Valid username is required.'+
+        '          <div class="input-group">'+
+        '            <div class="input-group-prepend">'+
+        '              <span class="input-group-text">@</span>'+
+        '            </div>'+
+        '            <div class="invalid-feedback" style="width: 100%;">'+
+>>>>>>> taemin
+        '            </div>'+
+        '          </div>'+
+        '        </div>'+
+        '        <div class="mb-3">'+
+<<<<<<< HEAD
 <<<<<<< HEAD
         '          <label for="pname">사용자이름</label>'+
         '          <input type="text" class="form-control" id="uname" placeholder="1234 Main St" required="">'+
@@ -186,22 +231,37 @@ auth_vue = {
 =======
         '          <label for="ssn">SSN <span class="text-muted">(Optional)</span></label>'+
         '          <input type="SSN" class="form-control" id="ssn" placeholder="">'+
+=======
+        '          <label for="email">Email <span class="text-muted">(Optional)</span></label>'+
+        '          <input type="email" class="form-control" id="email" placeholder="you@example.com">'+
+>>>>>>> taemin
         '          <div class="invalid-feedback">'+
         '            Please enter a valid email address for shipping updates.'+
         '          </div>'+
         '        </div>'+
         '        <div class="mb-3">'+
+<<<<<<< HEAD
         '          <label for="creditcard">creditcard</label>'+
         '          <input type="text" class="form-control" id="creditcard" placeholder="creditcard" required="">'+
         '          <div class="invalid-feedback">'+
         '            Please enter your shipping address.'+
         '          </div>'+
         '        </div>'+
+=======
+        '          <label for="address">Address</label>'+
+        '          <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">'+
+        '          <div class="invalid-feedback">'+
+        '            Please enter your shipping address.'+
+        '          </div>'+
+>>>>>>> taemin
         '        <div class="row">'+
         '          <div class="col-md-5 mb-3">'+
         '            <label for="country">Country</label>'+
         '            <select class="custom-select d-block w-100" id="country" required="">'+
+<<<<<<< HEAD
 >>>>>>> 477b340027fb1dbd3ad9ddeb549b90ce575782c4
+=======
+>>>>>>> taemin
         '              <option value="">Choose...</option>'+
         '              <option>United States</option>'+
         '            </select>'+
@@ -211,12 +271,17 @@ auth_vue = {
         '          </div>'+
         '          <div class="col-md-4 mb-3">'+
 <<<<<<< HEAD
+<<<<<<< HEAD
         '            <label for="email">이메일</label>'+
         '            <select class="custom-select d-block w-100" id="email" required="">'+
 =======
         '            <label for="state">State</label>'+
         '            <select class="custom-select d-block w-100" id="state" required="">'+
 >>>>>>> 477b340027fb1dbd3ad9ddeb549b90ce575782c4
+=======
+        '            <label for="state">State</label>'+
+        '            <select class="custom-select d-block w-100" id="state" required="">'+
+>>>>>>> taemin
         '              <option value="">Choose...</option>'+
         '              <option>California</option>'+
         '            </select>'+
@@ -278,10 +343,14 @@ auth_vue = {
         '          <div class="col-md-3 mb-3">'+
         '            <label for="cc-expiration">Expiration</label>'+
 <<<<<<< HEAD
+<<<<<<< HEAD
         '            <input id="join_1" type="text" class="form-control" id="cc-expiration" placeholder="" required="">'+
 =======
         '            <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">'+
 >>>>>>> 477b340027fb1dbd3ad9ddeb549b90ce575782c4
+=======
+        '            <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">'+
+>>>>>>> taemin
         '            <div class="invalid-feedback">'+
         '              Expiration date required'+
         '            </div>'+
@@ -289,10 +358,14 @@ auth_vue = {
         '          <div class="col-md-3 mb-3">'+
         '            <label for="cc-cvv">CVV</label>'+
 <<<<<<< HEAD
+<<<<<<< HEAD
         '            <input id="join_2" type="text" class="form-control" id="cc-cvv" placeholder="" required="">'+
 =======
         '            <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">'+
 >>>>>>> 477b340027fb1dbd3ad9ddeb549b90ce575782c4
+=======
+        '            <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">'+
+>>>>>>> taemin
         '            <div class="invalid-feedback">'+
         '              Security code required'+
         '            </div>'+
@@ -300,10 +373,14 @@ auth_vue = {
         '        </div>'+
         '        <hr class="mb-4">'+
 <<<<<<< HEAD
+<<<<<<< HEAD
         '        <div id="btn_join">'+
 =======
         '        <div id="btn_join"></div>'+
 >>>>>>> 477b340027fb1dbd3ad9ddeb549b90ce575782c4
+=======
+        '        <div id="btn_join"></div>'+
+>>>>>>> taemin
         '      </form>'+
         '    </div>'+
         '  </div>'+
@@ -317,6 +394,7 @@ auth_vue = {
         '  </footer>'+
         '</div>'
 	},
+<<<<<<< HEAD
 <<<<<<< HEAD
 	login_head : x=>{
 =======
@@ -333,12 +411,24 @@ auth_vue = {
 >>>>>>> 477b340027fb1dbd3ad9ddeb549b90ce575782c4
 		'  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">'+
 		'   <meta charset="utf-8">'+
+=======
+	login_head : x=>{
+		return '  <meta charset="UTF-8">'+
+		'  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">'+
+		'  <title>Document</title>'+
+		'  <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/checkout/">'+
+		'  <head>  '+
+		 '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">'+
+		'  <link href="/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">'+
+		'    <meta charset="utf-8">'+
+>>>>>>> taemin
 		'    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">'+
 		'    <meta name="description" content="">'+
 		'    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">'+
 		'    <meta name="generator" content="Jekyll v3.8.5">'+
 		'    <title>Signin Template · Bootstrap</title>'+
 		'    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sign-in/">'+
+<<<<<<< HEAD
 		'    <style>'+
 		'      .bd-placeholder-img {'+
 		'        font-size: 1.125rem;'+
@@ -415,6 +505,9 @@ auth_vue = {
 		'    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/jumbotron/">'+
 		'    <!-- Bootstrap core CSS -->'+
 		'<link href="https://getbootstrap.com/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">'+
+=======
+		'    <!-- Bootstrap core CSS -->'+
+>>>>>>> taemin
 		'    <style>'+
 		'      .bd-placeholder-img {'+
 		'        font-size: 1.125rem;'+
@@ -431,6 +524,7 @@ auth_vue = {
 		'      }'+
 		'    </style>'+
 		'    <!-- Custom styles for this template -->'+
+<<<<<<< HEAD
 		'    <link href="'+x.css+'/jumbotron.css" rel="stylesheet">'+
 		'  </head>'
 	},
@@ -668,4 +762,32 @@ auth_vue = {
 	}	
 >>>>>>> 477b340027fb1dbd3ad9ddeb549b90ce575782c4
 	
+=======
+		'    <link href="'+x.css+'/signin.css" rel="stylesheet">'+
+		'  </head>'
+	},
+	login_body : x=>{
+		return ' <form id = "form_join" class="form-signin">'+
+		'    <img class="mb-4" src="'+x.img+'/bootstrap-solid.svg" alt="" width="72" height="72">'+
+		'    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>'+
+		'    <label for="inputEmail" class="sr-only">Email address</label>'+
+		'    <input type="text" id="uid" class="form-control" placeholder="Email address" required="" autofocus="">'+
+		'    <label for="pwd" class="sr-only">Password</label>'+
+		'    <input type="password" id="pwd" class="form-control" placeholder="Password" required="">'+
+		'    <div class="checkbox mb-3">'+
+		'      <label>'+
+		'      <a id = "a_go_join" href="#">회원가입</a>'+
+		'      </label>'+
+		'      <label>'+
+		'      <a id = "a_go_admin" href="#">관리자모드</a>'+
+		'      </label>'+
+		'    </div>'+
+		'    <div id="btn_login"></div>'+
+		'    <p class="mt-5 mb-3 text-muted">© 2017-2019</p>'+
+		'  </form>'
+	}
+	/*,my_page : d=>{
+		return '	<h1>안녕 마이페이지입니다'+d.uid+d.pwd+d.pname+'</h1>'
+	}*/
+>>>>>>> taemin
 };
