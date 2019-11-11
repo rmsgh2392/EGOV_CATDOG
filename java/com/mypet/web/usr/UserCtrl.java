@@ -1,6 +1,8 @@
 package com.mypet.web.usr;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mypet.web.cmm.IConsumer;
 import com.mypet.web.cmm.IFunction;
+import com.mypet.web.enums.SQL;
 import com.mypet.web.util.Printer;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("/users")
 public class UserCtrl {
 	private static final Logger logger = LoggerFactory.getLogger(UserCtrl.class);
 	 //스프링컨테이너에 담아놓는다 (컨테이너와 연결)
@@ -35,12 +38,12 @@ public class UserCtrl {
 //		return "index";
 //	}
 	@GetMapping("/{uid}/exist")
-	public Map<?,?> existId(@PathVariable String cid){
+	public Map<?,?> existId(@PathVariable String uid){
 		logger.info("exist들어옴");
-		IFunction<String,Integer> f = t->userMapper.existId(cid);
+		IFunction<String,Integer> f = t->userMapper.existId(uid);
 		map.clear();
-		printer.accept("값은 :" +f.apply(cid));
-		map.put("msg",(f.apply(cid)==0) ? "success" :"fail");
+		printer.accept("값은 :" +f.apply(uid));
+		map.put("msg",(f.apply(uid)==0) ? "success" :"fail");
 		return map;
 	}
 	
@@ -80,5 +83,30 @@ public class UserCtrl {
 		 c.accept(param);
 		return "fail";
 	}
+	
+	@GetMapping("/create/table")
+	public Map<?,?> createUser(){
+		HashMap<String,String> paramMap = new HashMap<>();
+		paramMap.put("CREATE_USER",SQL.CREATE_USER.toString());
+		System.out.println("테이블생성 들어옴"+paramMap.get("CREATE_USER"));
+		Consumer<HashMap<String,String>> c = t->userMapper.createUser(t);
+		c.accept(paramMap);
+		paramMap.clear();
+		paramMap.put("msg", "success");
+		System.out.println("테이블 생성 결과 값 : "+paramMap);
+		return paramMap;
+	}
+	@GetMapping("/drop/table")
+	public Map<?,?> dripUser(){
+		HashMap<String,String> paramMap = new HashMap<>();
+		System.out.println("테이블 삭제 들어옴");
+		paramMap.put("DROP_USER",SQL.DROP_USER.toString());
+		Consumer<HashMap<String,String>> c = t->userMapper.dropUser(t);
+		c.accept(paramMap);
+		paramMap.clear();
+		paramMap.put("msg","success");
+		return paramMap;
+	}
+
 }
 

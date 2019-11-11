@@ -3,17 +3,30 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     <mapper namespace="com.mypet.web.usr.UserMapper">
- 
+ 	
 
     <select id="selectUserById" resultType="User">
-       SELECT * FROM CUSTOMER
+       SELECT * FROM USER
 			WHERE CID LIKE #{uid}
     </select>
     <insert id="insertUser" parameterType="User">
-        INSERT INTO CUSTOMER (CID,PWD,SSN,CREDITCARD,PNAME,PHONE,ADDRESS,EMAIL) values (
+        INSERT INTO USER (UID,PWD,SSN,UNAME,PHONE,ADDRESS,EMAIL) values (
             #{uid}, #{pwd},#{ssn},#{uname},#{phone},#{address},#{email})
     </insert>
     <select id="existId"  resultType="int">
-    	SELECT COUNT(*) CT FROM CUSTOMER WHERE CID LIKE #{uid}
+    	SELECT COUNT(*)  FROM USER WHERE UID LIKE #{uid}
+    </select>
+    <select  id="countUsers" resultType="int">
+    	SELECT COUNT(*)  FROM USER 
+    </select>
+    
+    <select id="createUser" parameterType="map">
+   		${CREATE_USER} 
+    </select>
+    <select id="dropUser" parameterType="map">
+     	${DROP_USER}
+    </select>
+    <select id="createCatdogDb" parameterType="map">
+    	${CREATE_DB}
     </select>
 </mapper>

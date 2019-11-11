@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Admin {
-	private String aid,pwd,ssn,creditcard,pname,phone,address,email;
+	private String aid,pwd,ssn,aname,phone,address,email;
 }

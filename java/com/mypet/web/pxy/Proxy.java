@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mypet.web.brd.ArticleMapper;
 import com.mypet.web.cmm.ISupplier;
 import com.mypet.web.usr.User;
+import com.mypet.web.usr.UserMapper;
 import com.mypet.web.util.Printer;
 
 import lombok.Data;
@@ -44,6 +46,7 @@ public class Proxy {
 	private final int BLOCK_SIZE = 5;
 	@Autowired Printer printer;
 	@Autowired ArticleMapper articleMapper;
+	@Autowired UserMapper userMapper;
 	@Autowired ProxyMap map;
 	
 	/*크롤링 프록시 페이징네이션프록시 따로 만들어도 상관없다 웬만하면 같이 모아도된다.*/
@@ -125,11 +128,19 @@ public class Proxy {
         return  ssn;
     }
 	public String makeUserid() {
-//		List<String> id = Arrays.asList("a","b","c","d","e","f","g","");
-		return "";	
+		List<String> idE = 
+		Arrays.asList("a","b","c","d","e","f","g"
+		,"h","i","j","k","l","n","m","o","p"
+		,"q","r","s","t","u","v","w","x","y","z",
+		"A","B","C","D","E","F","G",
+		"H","I","J","K","L","N","M","O","P"
+		,"Q","R","S","T","U","V","W","X","Y","Z",
+		"0","1","2","3","4","5","6","7","8","9");
+		Collections.shuffle(idE);
+		return idE.get(0) + idE.get(1)+idE.get(2)+idE.get(3)+idE.get(4);	
 	}
 	public String userPhone() {
-		return "";
+		return String.format("03%d-%4d-%4d",this.random(1,10),this.random(1,9999),this.random(1,9999));
 	}
 	public String userAddress() {
 		return "";
@@ -175,6 +186,8 @@ public class Proxy {
 	@Transactional
 	public void insertUsers() {
 		for(int i=0;i<500; i++) {
+//			Function<User,User> f = t -> userMapper.insertUser(makeUsers());
+			userMapper.insertUser(makeUsers());
 			
 		}
 	}

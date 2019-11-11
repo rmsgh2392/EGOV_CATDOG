@@ -19,4 +19,7 @@
    			AND ${pwd} LIKE #{pwd}<!-- '${PWD}' 와 #{PWD}똑같고 '%${PWD}%' PWD에 A 값을 주면 A가 들어있는 값들을 다 불러옴  -->
    		</trim >
    		</select>
+   		<select id="createAdmin" parameterType="map">
+   			${CREATE_ADMIN}
+   		</select>
     </mapper>

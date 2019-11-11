@@ -83,57 +83,108 @@ adm =(()=>{
 	let user_mgmt =()=>{
 		alert('고객관리 들어옴')
 		$('#right').empty()
-		$('<div class="row">'+
-		'                    <div class="col-md-3 col-sm-12 col-xs-12">'+
-		'                        <div class="panel panel-primary text-center no-boder bg-color-green">'+
-		'                            <div class="panel-left pull-left green">'+
-		'                                <i class="fa fa-bar-chart-o fa-5x"></i>'+
-		'                                '+
-		'                            </div>'+
-		'                            <div class="panel-right pull-right">'+
-		'                                <h3>8,457</h3>'+
-		'                               <strong> Daily Visits</strong>'+
-		'                            </div>'+
-		'                        </div>'+
-		'                    </div>'+
-		'                    <div class="col-md-3 col-sm-12 col-xs-12">'+
-		'                        <div class="panel panel-primary text-center no-boder bg-color-blue">'+
-		'                              <div class="panel-left pull-left blue">'+
-		'                                <i class="fa fa-shopping-cart fa-5x"></i>'+
-		'                                </div>'+
-		'                                '+
-		'                            <div class="panel-right pull-right">'+
-		'                            <h3>52,160 </h3>'+
-		'                               <strong> Sales</strong>'+
+		$('<a>데이터베이스 생성</a></br>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/cmm/create/db',d=>{
+				if(d.msg==='success'){
+					alert('데이터베이스 생성 완료 ')}
+				else {alret('데이터베이스 실패 ')}
+			})
+		})
+		$('<a>고객테이블 생성</a></br>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/users/create/table',d=>{
+				if(d.msg==='success'){
+					alert('고객테이블 생성 완료 ')}
+				else {alret('고객테이블 생성 실패 ')}
+			})
+		})
+		$('<button>관리자 테이블 생성</button></br>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/admins/create/table',d=>{
+				if(d.msg==='success'){
+					alert('관리자 테이블 생성 완료 ')}
+				else {alret('관리자 테이블 생성 실패 ')}
+			})
+		})
+		$('<a>고객 테이블 삭제 </a></br>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/users/drop/table',d=>{
+				if(d.msg==='success'){
+					alert('테이블 삭제 성공')
+				}else{
+					alert('테이블 삭제 실패 ')
+				}
+			})
+		})
+		$('<a>고객등록</a></br>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/tx/register/users',d=>{
+				alert('유저의 수 :'+d.userCount)
+			})
+		})
 		
-		'                          </div>'+
-		'                        </div>'+
-		'                    </div>'+
-		'                    <div class="col-md-3 col-sm-12 col-xs-12">'+
-		'                        <div class="panel panel-primary text-center no-boder bg-color-red">'+
-		'                            <div class="panel-left pull-left red">'+
-		'                                <i class="fa fa fa-comments fa-5x"></i>'+
-		'                               '+
-		'                            </div>'+
-		'                            <div class="panel-right pull-right">'+
-		'                             <h3>15,823 </h3>'+
-		'                               <strong> Comments </strong>'+
-		'                          </div>'+
-		'                        </div>'+
-		'                    </div>'+
-		'                    <div class="col-md-3 col-sm-12 col-xs-12">'+
-		'                        <div class="panel panel-primary text-center no-boder bg-color-brown">'+
-		'                            <div class="panel-left pull-left brown">'+
-		'                                <i class="fa fa-users fa-5x"></i>'+
-		'                                '+
-		'                            </div>'+
-		'                            <div class="panel-right pull-right">'+
-		'                            <h3>36,752 </h3>'+
-		'                             <strong>No. of Visits</strong>'+
-		'                           </div>'+
-		'                        </div>'+
-		'                    </div>'+
-		'                </div>').appendTo('#right')
+//		$('<div class="row">'+
+//		'                    <div class="col-md-3 col-sm-12 col-xs-12">'+
+//		'                        <div class="panel panel-primary text-center no-boder bg-color-green">'+
+//		'                            <div class="panel-left pull-left green">'+
+//		'                                <i class="fa fa-bar-chart-o fa-5x"></i>'+
+//		'                                '+
+//		'                            </div>'+
+//		'                            <div class="panel-right pull-right">'+
+//		'                                <h3>8,457</h3>'+
+//		'                               <strong> Daily Visits</strong>'+
+//		'                            </div>'+
+//		'                        </div>'+
+//		'                    </div>'+
+//		'                    <div class="col-md-3 col-sm-12 col-xs-12">'+
+//		'                        <div class="panel panel-primary text-center no-boder bg-color-blue">'+
+//		'                              <div class="panel-left pull-left blue">'+
+//		'                                <i class="fa fa-shopping-cart fa-5x"></i>'+
+//		'                                </div>'+
+//		'                                '+
+//		'                            <div class="panel-right pull-right">'+
+//		'                            <h3>52,160 </h3>'+
+//		'                               <strong> Sales</strong>'+
+//		
+//		'                          </div>'+
+//		'                        </div>'+
+//		'                    </div>'+
+//		'                    <div class="col-md-3 col-sm-12 col-xs-12">'+
+//		'                        <div class="panel panel-primary text-center no-boder bg-color-red">'+
+//		'                            <div class="panel-left pull-left red">'+
+//		'                                <i class="fa fa fa-comments fa-5x"></i>'+
+//		'                               '+
+//		'                            </div>'+
+//		'                            <div class="panel-right pull-right">'+
+//		'                             <h3>15,823 </h3>'+
+//		'                               <strong> Comments </strong>'+
+//		'                          </div>'+
+//		'                        </div>'+
+//		'                    </div>'+
+//		'                    <div class="col-md-3 col-sm-12 col-xs-12">'+
+//		'                        <div class="panel panel-primary text-center no-boder bg-color-brown">'+
+//		'                            <div class="panel-left pull-left brown">'+
+//		'                                <i class="fa fa-users fa-5x"></i>'+
+//		'                                '+
+//		'                            </div>'+
+//		'                            <div class="panel-right pull-right">'+
+//		'                            <h3>36,752 </h3>'+
+//		'                             <strong>No. of Visits</strong>'+
+//		'                           </div>'+
+//		'                        </div>'+
+//		'                    </div>'+
+//		'                </div>').appendTo('#right')
 	}
 	
 	let webCrawling =()=>{
