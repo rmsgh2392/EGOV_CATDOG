@@ -14,8 +14,7 @@ adm = (()=>{
 	let onCreate=()=>{
 		init()
 		$.when(
-			$.getScript(navi_vue_js),
-			$.getScript(cust_vue_js)
+			$.getScript(navi_vue_js)
 		).done(()=>{
 			setContentView()
 		}).fail(()=>{
@@ -107,7 +106,48 @@ adm = (()=>{
 		})
 	}
 	let cust_mgmt=()=>{
-		$('cust').html(cust_vue.cust)
+		$('#right').empty()
+		$('<a>DB 생성</a>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/cmm/create/db',d=>{
+				alert('DB생성 성공여부:::'+d.msg)
+			})
+		})
+		$('<a>고객테이블 생성</a>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/users/create/table',d=>{
+				alert('테이블생성 성공여부:::'+d.msg)
+			})
+		})
+		$('<a>고객테이블 삭제</a>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/users/drop/table',d=>{
+				alert('테이블 삭제 성공여부:::'+d.msg)
+			})
+		})
+		$('<a>유저 생성</a>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/tx/register/users/',d=>{
+				alert('등록된 유저의 수:'+d.userCount)
+			})
+		})
+		$('<a>CAT테이블 생성</a>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/cat/create/table',d=>{
+				alert('테이블생성 성공여부:::'+d.msg)
+			})
+		})
+//		$('cust').html(cust_vue.cust)
 	}
 	return{onCreate}	
 	})

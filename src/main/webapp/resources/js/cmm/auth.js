@@ -130,11 +130,11 @@ auth = (()=>{
         .appendTo('#btn_login')
     }
     let access =()=>{
-    	$('#a_go_admin').click(e=>{
-    		e.preventDefault()
-    		let ok = confirm('사원입니까')
+    	$('#a_go_admin').click(()=>{
+				adm.onCreate()
+        	/*	let ok = confirm('사원입니까')
         	if(ok){
-        		let aid = prompt('사원번호를 입력하시오')
+        	 * let aid = prompt('사원번호를 입력하시오')
         		$.ajax({
         			url: _+'/admins/'+aid,
         			type: 'POST',
@@ -151,13 +151,13 @@ auth = (()=>{
         					adm.onCreate()
         				}else(
         					alert('접근권한이 없습니다.'))
-//        					app.run(_)
+        					app.run(_)
         			},
         			error : function(request,status,error){
         		        alert("error code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         		       }
         		})
-        	}
+        		}*/
     	})
     }
     return {onCreate, join, login}

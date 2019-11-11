@@ -1,6 +1,8 @@
 package com.mypet.web.usr;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mypet.web.cmm.IConsumer;
 import com.mypet.web.cmm.IFunction;
+import com.mypet.web.enums.SQL;
 import com.mypet.web.utl.Printer;
 
 
@@ -83,5 +86,27 @@ public class UserCtrl {
 		map.clear();
 		map.put("msg", "Delete Success");
 		return map;
+	}
+	@GetMapping("/create/table")
+	public Map<?,?> createUser() {
+		HashMap<String, String> paramMap = new HashMap<>();
+		paramMap.put("CREATE_USER", SQL.CREATE_USER.toString());
+		printer.accept("테이블 생성쿼리 :::" + paramMap.get("CREATE_USER"));
+		Consumer<HashMap<String, String>> c = o -> userMapper.createUser(o);
+		c.accept(paramMap);
+		paramMap.clear();
+		paramMap.put("msg", "Success");
+		return paramMap;
+	}
+	@GetMapping("/drop/table")
+	public Map<?,?> dropUser() {
+		HashMap<String, String> paramMap = new HashMap<>();
+		paramMap.put("DROP_USER", SQL.DROP_USER.toString());
+		printer.accept("테이블 삭제쿼리 :::" + paramMap.get("DROP_USER"));
+		Consumer<HashMap<String, String>> c = o -> userMapper.createUser(o);
+		c.accept(paramMap);
+		paramMap.clear();
+		paramMap.put("msg", "Success");
+		return paramMap;
 	}
 }

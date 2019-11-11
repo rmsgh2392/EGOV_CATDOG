@@ -18,9 +18,7 @@ import com.mypet.web.cmm.ISupplier;
 import com.mypet.web.utl.Printer;
 
 import lombok.Data;
-
-@Data
-@Component@Lazy
+@Component@Lazy@Data
 public class Proxy {
     private int totalCount, startRow, endRow,
     			pageCount, pageNum, pageSize, startPage, endPage, 
@@ -110,8 +108,8 @@ public class Proxy {
     @Transactional
     public void insertUsers() {
     	for(int i=0; i< 500; i++) {
-    		
-    	}
+    	}    		
+    }
    public List<?> makeAdd(){
 	   List<String> city = Arrays.asList("서울특별시", "부산광역시", "인천광역시", "대구광역시", "대전광역시", "광주광역시", "울산광역시", "제주특별자치도", "세종특별자치시",
 			   							"경기도", "충청북도", "충청남도", "강원도", "전라북도", "전라남도", "경상북도", "경상남도");
@@ -125,5 +123,6 @@ public class Proxy {
 	   List<String> jejuState = Arrays.asList("제주시", "서귀포시");
 	   List<String> sejongState = Arrays.asList("조치원읍", "연기면", "연동면", "부강면", "금남면", "장군면", "연서면", "전의면", "전동면", "소정면", "한솔동", "새롬동", "도담동", "아름동", "종촌동", "고운동", "소담동", "보람동", "대평동");
 	   List<String> geunggiState = Arrays.asList("수원시", "고양시", "용인시", "성남시", "부천시", "안산시", "화성시", "남양주시", "안양시", "평탱시", "시흥시", "파주시", "의정부시", "김포시", "광주시", "광명시", "군포시", "오산시", "하남시", "이천시", "양주시", "안성시", "구리시", "포천시", "의왕시", "여주시", "양평군", "동두천시", "가평군", "과천시", "연천군");
+	return geunggiState;
     }
 }
