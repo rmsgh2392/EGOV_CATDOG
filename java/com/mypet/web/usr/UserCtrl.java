@@ -1,11 +1,9 @@
 package com.mypet.web.usr;
 
 import java.util.HashMap;
-
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +38,7 @@ public class UserCtrl {
 		logger.info("exist들어옴");
 		Function<String,Integer> f = t->userMapper.existId(uid);
 		map.clear();
-//		printer.accept("값은 :" +f.apply(uid));
+		System.out.println("값은 :" +f.apply(uid));
 		map.put("msg",(f.apply(uid)==0) ? "success" :"fail");
 		return map;
 	}
@@ -51,7 +49,9 @@ public class UserCtrl {
 //		request.getparameter("cid")를 안해도 가져올수 있다.
 //		logger.info("ajax가 보낸 아이디와 비번입니다 {} ",param.getCid()+","+param.getPwd()+","+param.getPname());
 //		리턴타입이 void, 이름이 번쩍하고 메퍼에다가 던져주고 없어진다.c가 있으면 이름이 있으므로 람다는 익명함수
-//		 printer.accept("join 들어옴");
+		System.out.println("join 들어옴");
+		 System.out.println("회원가입 컨트롤러 들어옴");
+		 System.out.println("넘어온 값 :"+param.toString());
 		 Consumer<User> c = t->userMapper.insertUser(t);
 		 c.accept(param);
 		 map.clear();
@@ -59,9 +59,9 @@ public class UserCtrl {
 		 return map;
 	} 
 	@PostMapping("/{uid}")// " " -> 상수 
-	public User login(@PathVariable String cid,@RequestBody User param){//이제 무조건 객체로 던져야한다.rest방식 서비스임플이 람다로 다오임플이 마이바티스
+	public User login(@PathVariable String uid,@RequestBody User param){//이제 무조건 객체로 던져야한다.rest방식 서비스임플이 람다로 다오임플이 마이바티스
 		Function<User,User> f = t-> userMapper.selectUserById(t);
-//		printer.accept("넘어온값 :"+f.apply(param));
+		System.out.println("넘어온값 :"+f.apply(param));
 		return f.apply(param);
 	}
 	@GetMapping("/{uid}")

@@ -31,8 +31,8 @@ public class CatCtrl {
 	@PostMapping("/")
 	public Map<?,?> register(@RequestBody Cat param) {
 //		Logger.info("AJAX가 보낸 아이디 & 비번 {}", param.getUid()+", "+ param.getPwd()+", "+ param.getPname());
-//		printer.accept("람다 프린터가 출력한 값 "+ param.getBirth()+", "+ param.getSex()+", "+ param.getName()
-//		+", "+ param.getHairlength()+", "+ param.getHaircolor()+", "+ param.getSpecies()+", "+ param.getSize()+", "+ param.getCharacter()+", "+ param.getIllhistory());
+		System.out.println("람다 프린터가 출력한 값 "+ param.getBirth()+", "+ param.getSex()+", "+ param.getName()
+		+", "+ param.getHairlength()+", "+ param.getHaircolor()+", "+ param.getSpecies()+", "+ param.getSize()+", "+ param.getCharacter()+", "+ param.getIllhistory());
 		Consumer<Cat> c = o -> catMapper.registerCat(param);
 		c.accept(param);
 		map.clear();
@@ -59,7 +59,7 @@ public class CatCtrl {
 	public Map<?,?> createCat() {
 		HashMap<String, String> paramMap = new HashMap<>();
 		paramMap.put("CREATE_CAT", SQL.CREATE_CAT.toString());
-//		printer.accept("테이블 생성쿼리 :::" + paramMap.get("CREATE_CAT"));
+		System.out.println("테이블 생성쿼리 :::" + paramMap.get("CREATE_CAT"));
 		Consumer<HashMap<String, String>> c = o -> catMapper.createCat(o);
 		c.accept(paramMap);
 		paramMap.clear();
@@ -70,7 +70,7 @@ public class CatCtrl {
 	public Map<?,?> dropCat() {
 		HashMap<String, String> paramMap = new HashMap<>();
 		paramMap.put("DROP_CAT", SQL.DROP_CAT.toString());
-//		printer.accept("테이블 삭제쿼리 :::" + paramMap.get("DROP_CAT"));
+		System.out.println("테이블 삭제쿼리 :::" + paramMap.get("DROP_CAT"));
 		Consumer<HashMap<String, String>> c = o -> catMapper.createCat(o);
 		c.accept(paramMap);
 		paramMap.clear();

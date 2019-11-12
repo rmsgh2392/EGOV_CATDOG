@@ -100,6 +100,14 @@ adm =(()=>{
 				else {alret('고객테이블 생성 실패 ')}
 			})
 		})
+		$('<button>고객대량정보 입력</button></br>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/tx/register/users',d=>{
+				alert('현재까지 고객 수 :'+d.userCount)
+			})
+		})
 		$('<button>관리자 테이블 생성</button></br>')
 		.appendTo('#right')
 		.click(e=>{

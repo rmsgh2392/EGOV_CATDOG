@@ -32,11 +32,11 @@ auth =(()=>{
   				$.getScript(auth_vuejs)
 					$('head').html(auth_vue.join_head())
 					$('body').html(auth_vue.join_body())
-					$('#cid').keyup(()=>{//keyup이라는 이벤트가 실행되고 실행되는 부분 
-						if($('#cid').val().length > 3){
+					$('#uid').keyup(()=>{//keyup이라는 이벤트가 실행되고 실행되는 부분 
+						if($('#uid').val().length > 3){
 							$.ajax({
 //									type : 'GET', GET방식은 default라 생략 가능  
-									url : _+'/customers/'+$('#cid').val()+'/exist',
+									url : _+'/users/'+$('#uid').val()+'/exist',
 									contentType : 'application/json',
 									//ajax --> ctrl --> IFunction --> db--> ctrl-->
 									//컨트롤러에서 리턴해준 값 d
@@ -60,9 +60,9 @@ auth =(()=>{
 							click : e=>{//버튼이라는 이벤트가 끝나면 실행되는 부분
 				         		e.preventDefault()
 				         		let d = { 
-								cid :  $('#cid').val() ,
+								uid :  $('#uid').val() ,
 								pwd : $('#pwd').val(),
-								pname : $('#pname').val()}
+								pname : $('#uname').val()}
 				         		join(d)
 						}
 					})//dom(루트객체)부분 끝 	
@@ -84,13 +84,13 @@ auth =(()=>{
 	}
 	
 		
-	let join =d=>{
+	let join =x=>{
 	//let join =d=> d는 위에 버튼 클릭을 하면 디비를 갔다가 중복검사를 마치고 넘어온 데이터 값들(cid,pwd,pname...)
 					$.ajax({
-						url : _+'/customers/',
+						url : _+'/users/',
 						type : 'POST',
 						dataType : 'json',
-						data : JSON.stringify(d),//상대방의 받는녀석의 기준이되서 타입을 맞춰준다.
+						data : JSON.stringify(x),//상대방의 받는녀석의 기준이되서 타입을 맞춰준다.
 						contentType : 'application/json',
 						success : d => {//customerctrl에  join부분에 들어가서 실행되
 							alert('회원가입 성공 :'+d.msg)
@@ -100,8 +100,6 @@ auth =(()=>{
 								$('body')
 								.html(auth_vue.login_body({css : $.css(),img : $.img()}))
 								.addClass('text-center')
-								
-								
 								//로그인 그림(화면)만 보여주는 부분
 								login(d)
 								//login()을 불러오면 로그인 함수의 기능들을 실행 
@@ -120,23 +118,23 @@ auth =(()=>{
 				click : e =>{
 					e.preventDefault()
 					let data ={
-						cid : $('#cid').val(),
+						uid : $('#uid').val(),
 						pwd : $('#pwd').val(),
-						pname :$('#pname').val()
+						pname :$('#uname').val()
 					}
-					alert('넘어가기 전 : '+data.cid)
+					alert('넘어가기 전 : '+data.uid)
 					$.ajax({
 						//전부다 스트링값 뒤에틑 값이니까 객체도 들어오고 스트링도 들어오고 함
-						url : _+'/customers/'+$('#cid').val(),
+						url : _+'/users/'+$('#uid').val(),
 						type : 'POST',
 						dataType : 'json',
 						data : JSON.stringify(data),
 						contentType : 'application/json',//밈 -->jsp에서 contentType="text/html"내가던지는 녀석이 다른쪽에서도 
 						success :  d=>{
-							alert('넘어온값 :'+d.cid)
-							setCookie("cid",d.cid)
+							alert('넘어온값 :'+d.uid)
+							setCookie("uid",d.uid)
 							//세션에 담길동안에 brd.oncreate()가 먼저 보내져있다.
-							alert('저장된 쿠키 : '+getCookie("cid"))
+							alert('저장된 쿠키 : '+getCookie("uid"))
 								brd.onCreate()	
 						},
 						error : e=>{

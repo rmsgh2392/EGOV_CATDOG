@@ -7,11 +7,11 @@
 
     <select id="selectUserById" resultType="User">
        SELECT * FROM USER
-			WHERE CID LIKE #{uid}
+			WHERE UID LIKE #{uid}
     </select>
     <insert id="insertUser" parameterType="User">
-        INSERT INTO USER (UID,PWD,SSN,UNAME,PHONE,ADDRESS,EMAIL) values (
-            #{uid}, #{pwd},#{ssn},#{uname},#{phone},#{address},#{email})
+        INSERT INTO USER (UID,PWD,SSN,UNAME,PHONE,ADDRESS,EMAIL,PETTYPE)values(
+            #{uid}, #{pwd},#{ssn},#{uname},#{phone},#{address},#{email},#{petType})
     </insert>
     <select id="existId"  resultType="int">
     	SELECT COUNT(*)  FROM USER WHERE UID LIKE #{uid}

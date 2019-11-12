@@ -10,6 +10,7 @@ import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +19,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.mypet.web.pxy.Proxy;
-import com.mypet.web.pxy.ProxyMap;
+import com.mypet.web.pxy.PageProxy;
+import com.mypet.web.pxy.Box;
 
 //import com.mypet.web.util.Printer;
 
@@ -29,52 +30,53 @@ public class ArticleCtrl {
 	private static final Logger logger = LoggerFactory.getLogger(ArticleCtrl.class);
 //	@Autowired Printer printer;
 	@Autowired Articles article;
-	@Autowired ProxyMap map;
 	@Autowired ArticleMapper articleMapper;
 	@Autowired List<Articles> list;
-	@Autowired Proxy proxy;
+	@Qualifier PageProxy pager;
+	@Autowired Box<?> box;
 	
 	
 	@PostMapping("/")
 	public Map<?,?> UpdateWrite(@RequestBody Articles param ) {
 		//파라미터와 리턴 사이에 =>에로우펑션을 쓴다. 람다 ~~
 		//한줄이면 블락 생략 가능 위에 제네릭스로 아티클이라는 객체가 이미 타입이 있어서 아티클도 제거 
-//		printer.accept("brdctrl에 들어옴");
+		System.out.println("brdctrl에 들어옴");
 		param.setBoardType("마이펫 게시판");
-//		printer.accept("cid :" +param.toString());
+		System.out.println("cid :" +param.toString());
 		Consumer<Articles> c = t-> articleMapper.insertArticle(t);
 		c.accept(param);
-//		printer.accept("map ::" +map);
+		System.out.println("box ::" +box);
 		Supplier<String> s = ()-> articleMapper.countArticle();
-		map.accept(Arrays.asList("msg","count"),
+		
+		box.accept(Arrays.asList("msg","count"),
 				Arrays.asList("success",s.get()));
-		return map.get();
+		return box.get();
 	}
 	@PostMapping("/{articleseq}")
 	public Map<?,?> deleteArticle(@PathVariable String articleseq , @RequestBody Articles param ){
-//		printer.accept("삭제하고싶음 들어와");
+		System.out.println("삭제하고싶음 들어와");
 //		map.clear();
 		Consumer<Articles> c = t-> articleMapper.deleteArticle(t);
 		c.accept(param);
-		map.accept(Arrays.asList("msg"),Arrays.asList("success"));
+		box.accept(Arrays.asList("msg"),Arrays.asList("success"));
 //		map.put("msg","success");
-//		printer.accept("map ::" +map);
-		return map.get();
+		System.out.println("box ::" +box);
+		return box.get();
 	}
 	
 	@GetMapping("/page/{pageNo}/size/{pageSize}")//외부에서 페이지 번호만 들어옴 
 	public Map<?,?> list(@PathVariable String pageNo,@PathVariable String pageSize){
-		proxy.setPageNum(proxy.parseInt(pageNo));
-		proxy.setPageSize(proxy.parseInt(pageSize));
-		proxy.paging();
+		pager.setPageNum(pager.parseInt(pageNo));
+		pager.setPageSize(pager.parseInt(pageSize));
+		pager.paging();
 		//하기전에 깨끗이 클리어하고 하자 !!
-		Supplier<List<Articles>> s = ()-> articleMapper.selectAllArticle(proxy);//제네릭스 안에 제네릭스가 들어갈 수 있다.
-//		printer.accept("해당페이지 :\n"+ s.get());
-		int ran = proxy.random(3,11);
-//		printer.accept("랜덤값 :"+ran);
+		Supplier<List<Articles>> s = ()-> articleMapper.selectAllArticle(pager);//제네릭스 안에 제네릭스가 들어갈 수 있다.
+		System.out.println("해당페이지 :\n"+ s.get());
+		int ran = pager.random(3,11);
+		System.out.println("랜덤값 :"+ran);
 		
-		map.accept(Arrays.asList("articles","proxy"),Arrays.asList(s.get(),proxy));
-		return 	map.get();
+		box.accept(Arrays.asList("articles","proxy"),Arrays.asList(s.get(),pager));
+		return 	box.get();
 	}
 	
 	@GetMapping("/{articleseq}")

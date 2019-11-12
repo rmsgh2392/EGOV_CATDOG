@@ -26,7 +26,6 @@ import com.mypet.web.enums.SQL;
 public class AdminCtrl {
 	@Autowired Admin admin;
 	@Autowired AdminMapper adminMapper;
-
 //	@Autowired Map<String,Object> map;
 	@Autowired List<Admin> adminList;
 
@@ -39,15 +38,14 @@ public class AdminCtrl {
 	
 	@PostMapping("/{aid}")
 	public Map<?,?> access(@PathVariable String aid ,@RequestBody Admin param){
-//		printer.accept(param.toString());
-//		printer.accept("admin 컨트롤러 access들어옴");
+		System.out.println(param.toString());
+		System.out.println("admin 컨트롤러 access들어옴");
 		Map<String,Object> map = new HashMap<>();
 		Function<Admin,Admin> f = t-> adminMapper.access(t);
 		map.clear();
 		map.put("msg", (f.apply(param) !=null) ? "success" : "fail");
-//		printer.accept("db값" +f.apply(param));
+		System.out.println("db값" +f.apply(param));
 		return map;
-//		f.apply(param) !=null ? "success" : "fail"
 	}
 	@GetMapping("/create/table")
 	public Map<?,?> createAdmin(){

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.mypet.web.pxy.ProxyMap;
+import com.mypet.web.pxy.Box;
 
 
 @RestController
@@ -18,19 +18,18 @@ import com.mypet.web.pxy.ProxyMap;
 @Transactional
 public class TxController {
 	@Autowired TxService txService;
-//	@Autowired Printer printer;
-	@Autowired ProxyMap map;
+	@Autowired Box map;
 	@GetMapping("/crawling/{site}/{srch}")
 
 	public void bringUrl(@PathVariable String site, @PathVariable String srch) {
-//		printer.accept(site +", srch" + srch);
+		System.out.println(site +", srch" + srch);
 		map.accept(Arrays.asList("site", "srch"), Arrays.asList(site, srch));
 		txService.crawling(map.get());
 	}
 	@GetMapping("/register/users")
 	public Map<?,?> registerUsers() {
 		int userCount = txService.registerUsers();
-//		printer.accept("서비스 카운팅 :::" + userCount);
+		System.out.println("서비스 카운팅 :::" + userCount);
 		map.accept(Arrays.asList("userCount"), Arrays.asList(userCount));
 		return map.get();
 	}
