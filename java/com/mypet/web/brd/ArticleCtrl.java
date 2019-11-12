@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.mypet.web.pxy.PageProxy;
+import com.mypet.web.pxy.Trunk;
 import com.mypet.web.pxy.Box;
 
 //import com.mypet.web.util.Printer;
@@ -28,12 +29,11 @@ import com.mypet.web.pxy.Box;
 @RequestMapping("/atricles")
 public class ArticleCtrl {
 	private static final Logger logger = LoggerFactory.getLogger(ArticleCtrl.class);
-//	@Autowired Printer printer;
 	@Autowired Articles article;
 	@Autowired ArticleMapper articleMapper;
-	@Autowired List<Articles> list;
+	@Autowired Box<Articles> box;
 	@Qualifier PageProxy pager;
-	@Autowired Box<?> box;
+	@Autowired Trunk<Object> trunk; // Trunk<Object> trunk에서 Object를 넣어주면 트렁크 안에 있는 모든 메서드들의 <T>로 선언된 곳의 Object가 들어간다. 
 	
 	
 	@PostMapping("/")
@@ -45,12 +45,12 @@ public class ArticleCtrl {
 		System.out.println("cid :" +param.toString());
 		Consumer<Articles> c = t-> articleMapper.insertArticle(t);
 		c.accept(param);
-		System.out.println("box ::" +box);
+		System.out.println("box ::" +trunk);
 		Supplier<String> s = ()-> articleMapper.countArticle();
 		
-		box.accept(Arrays.asList("msg","count"),
+		trunk.accept(Arrays.asList("msg","count"),
 				Arrays.asList("success",s.get()));
-		return box.get();
+		return trunk.get();
 	}
 	@PostMapping("/{articleseq}")
 	public Map<?,?> deleteArticle(@PathVariable String articleseq , @RequestBody Articles param ){
@@ -58,10 +58,10 @@ public class ArticleCtrl {
 //		map.clear();
 		Consumer<Articles> c = t-> articleMapper.deleteArticle(t);
 		c.accept(param);
-		box.accept(Arrays.asList("msg"),Arrays.asList("success"));
+		trunk.accept(Arrays.asList("msg"),Arrays.asList("success"));
 //		map.put("msg","success");
-		System.out.println("box ::" +box);
-		return box.get();
+		System.out.println("box ::" +trunk);
+		return trunk.get();
 	}
 	
 	@GetMapping("/page/{pageNo}/size/{pageSize}")//외부에서 페이지 번호만 들어옴 
@@ -70,13 +70,14 @@ public class ArticleCtrl {
 		pager.setPageSize(pager.parseInt(pageSize));
 		pager.paging();
 		//하기전에 깨끗이 클리어하고 하자 !!
+		box.clear();
 		Supplier<List<Articles>> s = ()-> articleMapper.selectAllArticle(pager);//제네릭스 안에 제네릭스가 들어갈 수 있다.
 		System.out.println("해당페이지 :\n"+ s.get());
 		int ran = pager.random(3,11);
 		System.out.println("랜덤값 :"+ran);
 		
-		box.accept(Arrays.asList("articles","proxy"),Arrays.asList(s.get(),pager));
-		return 	box.get();
+		trunk.accept(Arrays.asList("articles","proxy"),Arrays.asList(s.get(),pager));
+		return 	trunk.get();
 	}
 	
 	@GetMapping("/{articleseq}")
@@ -86,6 +87,10 @@ public class ArticleCtrl {
 		//상태라는 개념!! 값이 상수상태냐 변수 상태냐 데이터가 변할 수 있는 상태냐 없는 상태냐 
 		//path중에서 바뀔 수 있는 부분 
 
+	}
+	@GetMapping("/fileupload")
+	public void upload() {
+		System.out.println("파일 업로드 들어옴");
 	}
 }
 

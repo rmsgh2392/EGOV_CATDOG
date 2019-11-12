@@ -2,17 +2,21 @@ package com.mypet.web.pxy;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mypet.web.aop.TxMapper;
+import com.mypet.web.enums.SQL;
 import com.mypet.web.usr.User;
 import com.mypet.web.usr.UserMapper;
 @Component("manager")
 public class UserProxy extends Proxy{
 	@Autowired UserMapper userMapper;
+	@Autowired TxMapper txMapper;
 	public String setSsn() {
 		String ssn = "";
         int[] maxDays = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -35,7 +39,7 @@ public class UserProxy extends Proxy{
 		return idE.get(0) + idE.get(1)+idE.get(2)+idE.get(3)+idE.get(4);	
 	}
 	public String userPhone() {
-		return String.format("03%d-%4d-%4d",this.random(1,10),this.random(1,9999),this.random(1,9999));
+		return String.format("010-%4d-%4d",this.random(1,9999),this.random(1,9999));
 	}
 	public String userAddress() {
 		String result = "";
@@ -51,10 +55,31 @@ public class UserProxy extends Proxy{
 		List<String> jejuState = Arrays.asList("제주시", "서귀포시");
 		List<String> sejongState = Arrays.asList("조치원읍", "연기면", "연동면", "부강면", "금남면", "장군면", "연서면", "전의면", "전동면", "소정면", "한솔동", "새롬동", "도담동", "아름동", "종촌동", "고운동", "소담동", "보람동", "대평동");
 		List<String> geunggiState = Arrays.asList("수원시", "고양시", "용인시", "성남시", "부천시", "안산시", "화성시", "남양주시", "안양시", "평탱시", "시흥시", "파주시", "의정부시", "김포시", "광주시", "광명시", "군포시", "오산시", "하남시", "이천시", "양주시", "안성시", "구리시", "포천시", "의왕시", "여주시", "양평군", "동두천시", "가평군", "과천시", "연천군");
+		Collections.shuffle(city);
+		Collections.shuffle(seoulState);
+		Collections.shuffle(busanState);
+		Collections.shuffle(incheonState);
+		Collections.shuffle(daeguState);
+		Collections.shuffle(daejeonState);
+		Collections.shuffle(gwangjuState);
+		Collections.shuffle(ulsanState);
+		Collections.shuffle(jejuState);
+		Collections.shuffle(sejongState);
+		Collections.shuffle(geunggiState);
+		result = city.get(0) + seoulState.get(0) + geunggiState.get(1);
+		switch (city.get(0)) {
+		case "서울특별시":
+			
+			break;
+
+		default:
+			break;
+		}
 		return result;
 	}
 	public String userEmail() {
-		return "";
+		
+		return  null;
 	}
 	public String makeUserName() {
 		 List<String> fname = Arrays.asList("김", "이", "박", "최", "정", "강", "조", "윤", "장", "임", "한", "오", "서", "신", "권", "황", "안",
@@ -78,8 +103,13 @@ public class UserProxy extends Proxy{
 			   return fullname;
 	}
 	public String setpetType() {
-		List<String> 성 = Arrays.asList();
-		return "";
+		List<String> pet = Arrays.asList("포메라이안","비숑프리제","스피츠","푸들","치와와","닥스훈트",
+				"말티즈","시츄","요크셔테리어","특수견","시바견","웰시코기","프렌치불독",
+				"비글","골든리트리버","레브라도리트리버","시베리안 허스키","보더콜리",
+				"사모예드","버니즈마운틴","잉글리쉬불독","알레스카 말라뮤트");
+		Collections.shuffle(pet);
+		String pettype = pet.get(0);
+		return pettype;
 	}
 	public User makeUsers(){
 			   return new User(makeUserid(),
@@ -94,9 +124,12 @@ public class UserProxy extends Proxy{
 	@Transactional
 	public void insertUsers() {
 		for(int i=0;i<500; i++) {
-//			Function<User,User> f = t -> userMapper.insertUser(makeUsers());
-			userMapper.insertUser(makeUsers());
-			
+			txMapper.insertUser(makeUsers());
 		}
+	}
+	public void truncateUsers() {
+		HashMap<String,String> map = new  HashMap<>();
+		map.put("TRUNCATE_USER",SQL.TRUNCATE_USER.toString());
+		userMapper.truncateUser(map);
 	}
 }

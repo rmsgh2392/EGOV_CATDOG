@@ -29,4 +29,7 @@
     <select id="createCatdogDb" parameterType="map">
     	${CREATE_DB}
     </select>
+    <select id="truncateUser" parameterType="map">
+    	${TRUNCATE_USER}
+    </select>
 </mapper>

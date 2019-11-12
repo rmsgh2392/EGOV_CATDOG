@@ -1,7 +1,7 @@
 package com.mypet.web.enums;
 
 public enum SQL {
-	CREATE_USER, DROP_USER,CREATE_DB,CREATE_ADMIN,CREATE_CAT,DROP_CAT;
+	CREATE_USER, DROP_USER,CREATE_DB,CREATE_ADMIN,CREATE_CAT,DROP_CAT,TRUNCATE_USER,CREATE_ARTICLES;
 	@Override
 	public String toString() {
 		String result = "";
@@ -48,6 +48,22 @@ public enum SQL {
 		case DROP_CAT :
 			result = "DROP TABLE CAT";
 			break;
+		case TRUNCATE_USER :
+			result = "TRUNCATE TABLE USER";
+			break;
+		case CREATE_ARTICLES:
+//			articleseq, image , uid, comments, msg, rating, boardType, title, content ;
+			result = "CREATE TABLE ARTICLES("
+					+ "ARTICLESEQ INT auto_increment PRIMARY KEY,"
+					+ "IMAGE VARCHAR(6),"
+					+ "UID VARCHAR(21),"
+					+ "COMMENTS VARCHAR(6),"
+					+ "MSG VARCHAR(9),"
+					+ "RATING VARCHAR(30),"
+					+ "boardType VARCHAR(9),"
+					+ "TITLE VARCHAR(21),"
+					+ "CONTENT VARCHAR(60)"
+					+ "foreign key(UID) references USER(UID))";
 		}
 		return result;
 	}

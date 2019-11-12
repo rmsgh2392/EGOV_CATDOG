@@ -120,7 +120,7 @@ auth =(()=>{
 					let data ={
 						uid : $('#uid').val(),
 						pwd : $('#pwd').val(),
-						pname :$('#uname').val()
+						uname :$('#uname').val()
 					}
 					alert('넘어가기 전 : '+data.uid)
 					$.ajax({

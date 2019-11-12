@@ -45,7 +45,7 @@ adm =(()=>{
 		})
 		let arr = [{txt :'웹크롤링',name:'web_crawling'}
 				  ,{txt :'고객관리',name:'users_mgmt'}
-				  ,{txt :'상품등록',name:'reg_item'}
+				  ,{txt :'커뮤니티관리',name:'comm_mgmt'}
 				  ,{txt :'상품조회',name:'item_srch'}
 				  ,{txt :'상품수정',name:'item_mod'}
 				  ,{txt :'상품삭제',name:'item_del'}]//json인데 list
@@ -61,7 +61,8 @@ adm =(()=>{
 				case 'users_mgmt' :
 					user_mgmt()
 					break
-				case 'reg_item' :
+				case 'comm_mgmt' :
+					comm_mgmt
 					break
 				case 'item_srch' :
 					break
@@ -74,6 +75,20 @@ adm =(()=>{
 					break
 				}
 //				alert(that+'메뉴클릭 -->')
+			})
+		})
+	}
+	let comm_mgmt =()=>{
+		alert('게시판관리 들어옴')
+		$('#right').empty()
+		$('<a>커뮤니티 테이블  생성</a></br>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/cmm/create/db',d=>{
+				if(d.msg==='success'){
+					alert('데이터베이스 생성 완료 ')}
+				else {alret('데이터베이스 실패 ')}
 			})
 		})
 	}
@@ -105,6 +120,14 @@ adm =(()=>{
 		.click(e=>{
 			e.preventDefault()
 			$.getJSON(_+'/tx/register/users',d=>{
+				alert('현재까지 고객 수 :'+d.userCount)
+			})
+		})
+		$('<button>고객대량정보 삭제</button></br>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/tx/truncate/users',d=>{
 				alert('현재까지 고객 수 :'+d.userCount)
 			})
 		})

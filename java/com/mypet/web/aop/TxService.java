@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.mypet.web.pxy.CrawlingProxy;
+import com.mypet.web.pxy.UserProxy;
 import com.mypet.web.usr.User;
 import com.mypet.web.usr.UserMapper;
 
@@ -17,7 +18,8 @@ public class TxService {
 //	@Autowired Printer printer;
 	@Autowired UserMapper userMapper;
 	@Autowired TxMapper txMapper;
-	@Qualifier CrawlingProxy crawler;
+	@Autowired CrawlingProxy crawler;
+	@Autowired UserProxy manager;
 
 	
 	@SuppressWarnings("unchecked")//노란불 뜨면 그냥 잡아서 실행하면 됨
@@ -30,11 +32,11 @@ public class TxService {
 	}
 	@Transactional
 	public int registerUsers(){
-		List<User> list = new ArrayList<>();
-		for(User user : list) {
-			txMapper.insertUser(user);
-		}
-		int userCount = userMapper.countUsers();
-		return userCount;
+		manager.insertUsers();
+		return userMapper.countUsers();
+	}
+	public int trucateUser() {
+		manager.truncateUsers();
+		return userMapper.countUsers();
 	}
 }

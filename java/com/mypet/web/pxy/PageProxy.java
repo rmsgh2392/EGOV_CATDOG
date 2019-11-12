@@ -22,7 +22,7 @@ import com.mypet.web.usr.UserMapper;
 import lombok.Data;
 @Data
 @Lazy
-@Component("pager")
+@Component("pager")//component하면 컨테이너에 소문자 pageproxy로 담긴다
 public class PageProxy extends Proxy{
 	private int pageNum,
 				pageSize,

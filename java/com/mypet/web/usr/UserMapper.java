@@ -13,5 +13,6 @@ public interface UserMapper {
 	public void createUser(HashMap<String,String> paramMap);
 	public void dropUser(HashMap<String,String> paramMap);
 	public void createCatdogDb(HashMap<String,String> paramMap);
+	public void truncateUser(HashMap<String,String> paramMap);
 
 }

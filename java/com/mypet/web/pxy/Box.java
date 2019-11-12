@@ -1,21 +1,13 @@
 package com.mypet.web.pxy;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import java.util.List;
-
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-
 import lombok.Data;
-
-
 @Data
 @Lazy
 @Component
 public class Box<T> {
-	private HashMap<String,Object> map;
 	private ArrayList<T> list;
 	public void add(T item) {
 		list = new ArrayList<T>();
@@ -25,7 +17,8 @@ public class Box<T> {
 	public ArrayList<T> getList() {return list;}
 	public int size() {return list.size();}
 	public String toString() {return list.toString();}
-	public void accept(List<String> x, List<?> y) {
+	public void clear() {list.clear();}
+	/*public void accept(List<String> x, List<?> y) {
 		map = new HashMap<>();
 		for(int i=0; i < x.size(); i++) {
 			map.put(x.get(i), y.get(i));
@@ -35,7 +28,7 @@ public class Box<T> {
 	}
 	public HashMap<String, Object> get(){
 		return map;
-	}
+	}*/
 	
 }
 /*public class ProxyMap {
