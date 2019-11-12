@@ -1,7 +1,7 @@
 package com.mypet.web.brd;
 
 import java.util.Arrays;
-
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -21,12 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.mypet.web.pxy.PageProxy;
 import com.mypet.web.pxy.Trunk;
+import com.mypet.web.enums.SQL;
 import com.mypet.web.pxy.Box;
 
 //import com.mypet.web.util.Printer;
 
 @RestController
-@RequestMapping("/atricles")
+@RequestMapping("/articles")
 public class ArticleCtrl {
 	private static final Logger logger = LoggerFactory.getLogger(ArticleCtrl.class);
 	@Autowired Articles article;
@@ -41,7 +42,7 @@ public class ArticleCtrl {
 		//파라미터와 리턴 사이에 =>에로우펑션을 쓴다. 람다 ~~
 		//한줄이면 블락 생략 가능 위에 제네릭스로 아티클이라는 객체가 이미 타입이 있어서 아티클도 제거 
 		System.out.println("brdctrl에 들어옴");
-		param.setBoardType("마이펫 게시판");
+		param.setCategory("마이펫 게시판");
 		System.out.println("cid :" +param.toString());
 		Consumer<Articles> c = t-> articleMapper.insertArticle(t);
 		c.accept(param);
@@ -78,6 +79,20 @@ public class ArticleCtrl {
 		
 		trunk.accept(Arrays.asList("articles","proxy"),Arrays.asList(s.get(),pager));
 		return 	trunk.get();
+	}
+	
+	@GetMapping("/create/table")
+	public Map<?,?> createArticle(){
+		System.out.println("게시판 테이블 생성들어옴");
+		HashMap<String,String> paramMap = new HashMap<>();
+		paramMap.put("CREATE_ARTICLES",SQL.CREATE_ARTICLES.toString());
+		System.out.println("테이블생성 들어옴"+paramMap.get("CREATE_ARTICLES"));
+		Consumer<HashMap<String,String>> c = t-> articleMapper.createArticles(paramMap);;
+		c.accept(paramMap);
+		paramMap.clear();
+		paramMap.put("msg","success");
+		System.out.println("테이블 생성 결과 값 : "+paramMap);
+		return paramMap;
 	}
 	
 	@GetMapping("/{articleseq}")

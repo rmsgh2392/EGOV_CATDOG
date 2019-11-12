@@ -1,7 +1,16 @@
 package com.mypet.web.enums;
 
 public enum SQL {
-	CREATE_USER, DROP_USER,CREATE_DB,CREATE_ADMIN,CREATE_CAT,DROP_CAT,TRUNCATE_USER,CREATE_ARTICLES;
+	CREATE_USER, 
+	DROP_USER,
+	CREATE_DB,
+	CREATE_ADMIN,
+	CREATE_CAT,
+	DROP_CAT,
+	TRUNCATE_USER,
+	CREATE_ARTICLES,
+	DROP_ARTICLES,
+	CREATE_DOG;
 	@Override
 	public String toString() {
 		String result = "";
@@ -52,18 +61,24 @@ public enum SQL {
 			result = "TRUNCATE TABLE USER";
 			break;
 		case CREATE_ARTICLES:
-//			articleseq, image , uid, comments, msg, rating, boardType, title, content ;
 			result = "CREATE TABLE ARTICLES("
-					+ "ARTICLESEQ INT auto_increment PRIMARY KEY,"
-					+ "IMAGE VARCHAR(6),"
-					+ "UID VARCHAR(21),"
-					+ "COMMENTS VARCHAR(6),"
-					+ "MSG VARCHAR(9),"
+					+ "ARTICLESEQ INT AUTO_INCREMENT PRIMARY KEY,"
+					+ "IMAGE VARCHAR(30),"
+					+ "UID VARCHAR(10),"
+					+ "MSG VARCHAR(30),"
 					+ "RATING VARCHAR(30),"
-					+ "boardType VARCHAR(9),"
-					+ "TITLE VARCHAR(21),"
-					+ "CONTENT VARCHAR(60)"
-					+ "foreign key(UID) references USER(UID))";
+					+ "CATEGORY VARCHAR(30),"
+					+ "HASHTAG VARCHAR(30),"
+					+ "CONTENT VARCHAR(30),"
+					+ "COMMENTS VARCHAR(30))";
+			break;
+		case DROP_ARTICLES :
+			result = "DROP TABLE ARTICLES";
+			break;
+		case CREATE_DOG:
+			result = "";
+			break;
+			
 		}
 		return result;
 	}

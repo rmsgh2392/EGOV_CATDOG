@@ -1,5 +1,6 @@
 package com.mypet.web.brd;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Component
 @AllArgsConstructor
 @NoArgsConstructor
+@Lazy
 public class Articles {
-	private String articleseq, image , uid, comments, msg, rating, boardType, title, content ;
+	private String articleseq, image , uid, comments, msg, rating, category, hashtag, content ;
 }

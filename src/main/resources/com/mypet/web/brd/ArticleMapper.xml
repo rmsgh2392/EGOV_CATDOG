@@ -5,9 +5,12 @@
 
     <mapper namespace="com.mypet.web.brd.ArticleMapper">
     	<insert id="insertArticle" parameterType="Articles">
-        INSERT INTO ARTICLES (CID, RATING, BOARD_TYPE, TITLE, CONTENT) values (
-           #{cid}, #{rating}, #{boardType}, #{title}, #{content})
+        INSERT INTO ARTICLES (UID, RATING, CATEGORY, TITLE, CONTENT) values (
+           #{uid}, #{rating}, #{category}, #{title}, #{content})
     	</insert>
+    	<select id="createArticles" parameterType="map">
+    		${CREATE_ARTICLES}
+    	</select>
     	
     	<select id="countArticle" resultType="string">
     		SELECT COUNT(*) FROM ARTICLES

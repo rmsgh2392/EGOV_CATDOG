@@ -62,7 +62,7 @@ adm =(()=>{
 					user_mgmt()
 					break
 				case 'comm_mgmt' :
-					comm_mgmt
+					comm_mgmt()
 					break
 				case 'item_srch' :
 					break
@@ -81,14 +81,24 @@ adm =(()=>{
 	let comm_mgmt =()=>{
 		alert('게시판관리 들어옴')
 		$('#right').empty()
-		$('<a>커뮤니티 테이블  생성</a></br>')
+		$('<a> 커뮤니티 테이블  생성</a></br>')
 		.appendTo('#right')
 		.click(e=>{
 			e.preventDefault()
-			$.getJSON(_+'/cmm/create/db',d=>{
+			$.getJSON(_+'/articles/create/table',d=>{
 				if(d.msg==='success'){
-					alert('데이터베이스 생성 완료 ')}
-				else {alret('데이터베이스 실패 ')}
+					alert('게시판 데이터베이스 생성 완료 ')}
+				else {alret('게시판 데이터베이스 실패 ')}
+			})
+		})
+		$('<a>커뮤니티 테이블  삭제</a></br>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/atricles/remove/table',d=>{
+				if(d.msg==='success'){
+					alert('게시판 데이터베이스 제거 완료 ')}
+				else {alret('게시판 데이터베이스 제거 실패 ')}
 			})
 		})
 	}

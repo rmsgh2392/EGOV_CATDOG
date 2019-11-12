@@ -9,5 +9,6 @@
        <typeAlias alias="Articles"  type="com.mypet.web.brd.Articles"/>
        <typeAlias alias="Admin"  type="com.mypet.web.adm.Admin"/>
        <typeAlias alias="Proxy"  type="com.mypet.web.pxy.Proxy"/>
+       <typeAlias alias="Cat"  type="com.mypet.web.cat.Cat"/>
     </typeAliases>
 </configuration>
