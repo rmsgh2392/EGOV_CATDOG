@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.mypet.web.pxy.PageProxy;
+import com.mypet.web.pxy.Proxy;
 import com.mypet.web.pxy.Trunk;
 import com.mypet.web.enums.SQL;
 import com.mypet.web.pxy.Box;
@@ -33,9 +34,9 @@ public class ArticleCtrl {
 	@Autowired Articles article;
 	@Autowired ArticleMapper articleMapper;
 	@Autowired Box<Articles> box;
-	@Qualifier PageProxy pager;
+	@Autowired PageProxy pager;
+	@Autowired Proxy proxy;
 	@Autowired Trunk<Object> trunk; // Trunk<Object> trunk에서 Object를 넣어주면 트렁크 안에 있는 모든 메서드들의 <T>로 선언된 곳의 Object가 들어간다. 
-	
 	
 	@PostMapping("/")
 	public Map<?,?> UpdateWrite(@RequestBody Articles param ) {
@@ -43,12 +44,11 @@ public class ArticleCtrl {
 		//한줄이면 블락 생략 가능 위에 제네릭스로 아티클이라는 객체가 이미 타입이 있어서 아티클도 제거 
 		System.out.println("brdctrl에 들어옴");
 		param.setCategory("마이펫 게시판");
-		System.out.println("cid :" +param.toString());
+		System.out.println("uid :" +param.toString());
 		Consumer<Articles> c = t-> articleMapper.insertArticle(t);
 		c.accept(param);
 		System.out.println("box ::" +trunk);
-		Supplier<String> s = ()-> articleMapper.countArticle();
-		
+		Supplier<Integer> s = ()-> articleMapper.countArticles();
 		trunk.accept(Arrays.asList("msg","count"),
 				Arrays.asList("success",s.get()));
 		return trunk.get();
@@ -56,31 +56,32 @@ public class ArticleCtrl {
 	@PostMapping("/{articleseq}")
 	public Map<?,?> deleteArticle(@PathVariable String articleseq , @RequestBody Articles param ){
 		System.out.println("삭제하고싶음 들어와");
-//		map.clear();
 		Consumer<Articles> c = t-> articleMapper.deleteArticle(t);
+		box.clear();
 		c.accept(param);
 		trunk.accept(Arrays.asList("msg"),Arrays.asList("success"));
-//		map.put("msg","success");
 		System.out.println("box ::" +trunk);
 		return trunk.get();
 	}
 	
 	@GetMapping("/page/{pageNo}/size/{pageSize}")//외부에서 페이지 번호만 들어옴 
 	public Map<?,?> list(@PathVariable String pageNo,@PathVariable String pageSize){
-		pager.setPageNum(pager.parseInt(pageNo));
-		pager.setPageSize(pager.parseInt(pageSize));
+		System.out.println("게시판 페이지 들어옴");
+		pager.setPageNum(proxy.parseInt(pageNo));
+		pager.setPageSize(proxy.parseInt(pageSize));
 		pager.paging();
 		//하기전에 깨끗이 클리어하고 하자 !!
 		box.clear();
 		Supplier<List<Articles>> s = ()-> articleMapper.selectAllArticle(pager);//제네릭스 안에 제네릭스가 들어갈 수 있다.
 		System.out.println("해당페이지 :\n"+ s.get());
-		int ran = pager.random(3,11);
-		System.out.println("랜덤값 :"+ran);
+//		int ran = pager.random(3,11);
+//		System.out.println("랜덤값 :"+ran);
 		
 		trunk.accept(Arrays.asList("articles","proxy"),Arrays.asList(s.get(),pager));
 		return 	trunk.get();
 	}
 	
+	//SQL에서 테이블을 제거하는게 아니라 자바에서 Articles table 생성하는 메서드
 	@GetMapping("/create/table")
 	public Map<?,?> createArticle(){
 		System.out.println("게시판 테이블 생성들어옴");
@@ -92,6 +93,20 @@ public class ArticleCtrl {
 		paramMap.clear();
 		paramMap.put("msg","success");
 		System.out.println("테이블 생성 결과 값 : "+paramMap);
+		return paramMap;
+	}
+	//SQL에서 테이블을 제거하는게 아니라 자바에서 Articles table 삭제하는 메서드
+	@GetMapping("/drop/table")
+	public Map<?,?> dropArticle(){
+		System.out.println("게시판 테이블 삭제들어옴");
+		HashMap<String,String> paramMap = new HashMap<>();
+		paramMap.put("DROP_ARTICLES",SQL.DROP_ARTICLES.toString());
+		System.out.println("테이블생성 들어옴"+paramMap.get("DROP_ARTICLES"));
+		Consumer<HashMap<String,String>> c = t-> articleMapper.dropArticles(paramMap);;
+		c.accept(paramMap);
+		paramMap.clear();
+		paramMap.put("msg","success");
+		System.out.println("테이블 삭제 결과 값 : "+paramMap);
 		return paramMap;
 	}
 	
@@ -109,80 +124,4 @@ public class ArticleCtrl {
 	}
 }
 
-/*public class ArticleCtrl {
-	private static final Logger Logger = LoggerFactory.getLogger(ArticleCtrl.class);
-	@Autowired ProxyMap map;
-	@Autowired Article article;
-	@Autowired ArticleMapper articleMapper;
-	@Autowired Printer printer;
-	@Autowired List<Article> list;
-	@Autowired Proxy pxy;
-	@PostMapping("/")
-	public Map<?,?> write(@RequestBody Article param){
-		param.setBoardtype("게시판");
-		IConsumer<Article> c = o -> articleMapper.insertArticle(param);
-		c.accept(param);
-		ISupplier<String> s = () -> articleMapper.countArticle();
-		map.accept(Arrays.asList("msg", "count"), Arrays.asList("Success", s.get()));
-		return map.get();
-	}
-	@GetMapping("/{articleseq}")
-	public Article read(@PathVariable @RequestBody Article param){
-
-		return null;
-	}
-
-	@PutMapping("/{articleseq}")
-	public Articles UpdateArticle(@PathVariable String articleseq ,@RequestBody Articles param) {
-		printer.accept("put에 들어옴");
-		list.clear();
-		IConsumer<Articles> c = t-> articleMapper.updateArticle(t);
-		c.accept(param);
-		IFunction<Articles,Articles> f= t->articleMapper.getArticle(t);
-//		f.apply(param);
-		printer.accept("전체글목록 "+f.apply(param));
-		return f.apply(param);
-	}
-	@DeleteMapping("/{articleseq}")
-	public Map<?,?> removeArticle(@PathVariable String articleseq, @RequestBody Articles param) {
-		return null;
-	}
-
-	@GetMapping("/count")
-	public Map<?,?> count(){
-		ISupplier<String> s = ()-> articleMapper.countArticle();
-		printer.accept("카운트 값 :"+s.get());
-		map.accept(Arrays.asList("count"),Arrays.asList(s.get()));
-
-	public Article editArticle(@PathVariable String articleseq, @RequestBody Article param){
-		list.clear();
-		IConsumer<Article> c = o-> articleMapper.editArticle(o);
-		c.accept(param);
-		IFunction<Article, Article> f = t-> articleMapper.getArticle(t);
-		return f.apply(param);
-	}
-	@DeleteMapping("/{articleseq}")
-	public Map<?,?> deleteArticle(@PathVariable String articleseq, @RequestBody Article param){
-		IConsumer<Article> c = o-> articleMapper.deleteArticle(o);
-		map.accept(Arrays.asList("msg"), Arrays.asList("Success"));
-		c.accept(param);
-		return map.get();
-	}
-	@GetMapping("/count")
-	public Map<?,?> countNum() {
-		ISupplier<String> s = () -> articleMapper.countArticle();
-		map.accept(Arrays.asList("count"), Arrays.asList(s.get()));
-		return map.get();
-	}
-	@GetMapping("/page/{pageNo}/size/{pageSize}")
-	public Map<?,?> list(@PathVariable String pageNo,
-			@PathVariable String pageSize) {
-		pxy.setPageNum(pxy.parseInt(pageNo));
-		pxy.setPageSize(pxy.parseInt(pageSize));
-		pxy.paging();
-		ISupplier<List<Article>> s =()-> articleMapper.selectAll(pxy);
-		map.accept(Arrays.asList("articles","pxy"), Arrays.asList(s.get(),pxy));
-
-		return map.get();
-	}*/
 

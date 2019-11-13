@@ -9,8 +9,8 @@ import lombok.Data;
 @Component
 public class Box<T> {
 	private ArrayList<T> list;
+	public Box() {list =  new ArrayList<T>();}
 	public void add(T item) {
-		list = new ArrayList<T>();
 		list.add(item);
 	}
 	public T get(int i) {return list.get(i);}

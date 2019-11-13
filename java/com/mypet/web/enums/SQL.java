@@ -64,13 +64,14 @@ public enum SQL {
 			result = "CREATE TABLE ARTICLES("
 					+ "ARTICLESEQ INT AUTO_INCREMENT PRIMARY KEY,"
 					+ "IMAGE VARCHAR(30),"
-					+ "UID VARCHAR(10),"
+					+ "UID VARCHAR(50) ,"
 					+ "MSG VARCHAR(30),"
 					+ "RATING VARCHAR(30),"
 					+ "CATEGORY VARCHAR(30),"
 					+ "HASHTAG VARCHAR(30),"
 					+ "CONTENT VARCHAR(30),"
-					+ "COMMENTS VARCHAR(30))";
+					+ "COMMENTS VARCHAR(30),"
+					+ "foreign key (UID) REFERENCES USER(UID))";
 			break;
 		case DROP_ARTICLES :
 			result = "DROP TABLE ARTICLES";

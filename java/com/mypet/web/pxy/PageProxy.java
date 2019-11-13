@@ -48,8 +48,8 @@ public class PageProxy extends Proxy{
 
 	@SuppressWarnings("unused")
 	public void paging() {
-		Supplier<String> s = ()->articleMapper.countArticle();
-		totalCount = Integer.parseInt(s.get());
+		Supplier<Integer> s = ()->articleMapper.countArticles();
+		totalCount = s.get();
 //		printer.accept("전체 글 개수 : "+totalCount);
 		pageCount = (totalCount%pageSize==0)? totalCount/pageSize : (totalCount/pageSize)+1;
 //		startRow = (pageNum * pageSize)-pageSize

@@ -5,21 +5,25 @@
 
     <mapper namespace="com.mypet.web.brd.ArticleMapper">
     	<insert id="insertArticle" parameterType="Articles">
-        INSERT INTO ARTICLES (UID, RATING, CATEGORY, TITLE, CONTENT) values (
-           #{uid}, #{rating}, #{category}, #{title}, #{content})
+        INSERT INTO ARTICLES (UID, RATING, CATEGORY, CONTENT,HASHTAG,COMMENTS,MSG,IMAGE) values (
+           #{uid}, #{rating}, #{category}, #{content},#{hashtag},#{comments},#{msg},#{image})
     	</insert>
     	<select id="createArticles" parameterType="map">
     		${CREATE_ARTICLES}
     	</select>
     	
-    	<select id="countArticle" resultType="string">
+    	<select id="dropArticles" parameterType="map">
+    		${DROP_ARTICLES}
+    	</select>
+    	
+    	<select id="countArticles" resultType="int">
     		SELECT COUNT(*) FROM ARTICLES
     	</select>
     	<!-- as 뒤에는 자바랑 똑같이 해줘야한다. 자바의 변수들은 언더바를 안하기 떄문에 alias를 주어서 자바랑 같게 해준다. -->
     	<select id="selectAllArticle" resultType="Articles" parameterType="Proxy">
-    		SELECT A.BOARD_TYPE AS boardType, A.* FROM
-			(SELECT * FROM ARTICLES
-			order by ARTICLESEQ DESC) A
+    		SELECT *
+    		FROM ARTICLES 
+    		ORDER BY ARTICLESEQ DESC
 			LIMIT #{startRow}, #{pageSize}
     	</select>
     	

@@ -67,7 +67,7 @@ brd = (()=>{
 	  			.click(()=>{
 	  				alert('id클릭')
 	  			})
-	  			$('<a>'+j.title+'</a>')
+	  			$('<a>'+j.category+'</a>')
 	  			.appendTo('#id_'+i)
 	  			.click(()=>{
 	  				alert('제목 클릭')
@@ -210,7 +210,7 @@ brd = (()=>{
 		$('#recent_updates div.container-fluid h1 ').html('ARTICLE DETAL')
 		alert('사용자 아이디 ::'+x.cid)
 		$('#write_form input[name="writer"]').val(x.uid)
-		$('#write_form input[name="title"]').val(x.title)
+		$('#write_form input[name="title"]').val(x.category)
 		$('#write_form textarea[name="content"]').val(x.content)
 		$('#suggestions').remove()
 		$('<input>',{

@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.mypet.web.brd.ArticleMapper;
+import com.mypet.web.pxy.ArticleProxy;
+import com.mypet.web.pxy.Box;
 import com.mypet.web.pxy.CrawlingProxy;
 import com.mypet.web.pxy.UserProxy;
 import com.mypet.web.usr.User;
@@ -20,16 +24,26 @@ public class TxService {
 	@Autowired TxMapper txMapper;
 	@Autowired CrawlingProxy crawler;
 	@Autowired UserProxy manager;
+	@Autowired Box<String> box;
+	@Autowired ArticleProxy comm;
+	@Autowired ArticleMapper articleMapper;
 
 	
 	@SuppressWarnings("unchecked")//노란불 뜨면 그냥 잡아서 실행하면 됨
-	public List<?> crawling(Map<?,?> paramMap){
-		List<String> txServiceList = new ArrayList<>();
-//		printer.accept("tx서비스 들어옴");
-		txServiceList.clear(); 
-		txServiceList = (List<String>) crawler.crawl(paramMap);
-		return txServiceList;
+	public Box<String> crawling(Map<?,?> paramMap){
+//		List<String> txServiceList = new ArrayList<>();
+////		printer.accept("tx서비스 들어옴");
+//		txServiceList.clear(); 
+//		txServiceList = (List<String>) crawler.choose(paramMap);
+//		return txServiceList;\
+		return crawler.choose(paramMap);
 	}
+	@Transactional
+	public int writeArticles() {
+		comm.insertArticles();
+		return articleMapper.countArticles();
+	}
+	
 	@Transactional
 	public int registerUsers(){
 		manager.insertUsers();

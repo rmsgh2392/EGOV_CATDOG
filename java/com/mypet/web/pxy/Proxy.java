@@ -11,6 +11,11 @@ public class Proxy {
 		Function<String, Integer> f = Integer :: parseInt;
 		return f.apply(param);
 	}
+	public String string(Object param) {
+//		Function<String, Integer> f = t ->Integer.parseInt(t);
+		Function<Object, String> f = String :: valueOf;
+		return f.apply(param);
+	}
 	public boolean equals(String p1 ,String p2) {
 //		BiFunction<String,String,Boolean> f = String :: equals;
 //		BiPredicate<String, String> p = (p1,p2)-> p1.equals(p2); 메서드 참조하면 아래와 같이 됨 !!

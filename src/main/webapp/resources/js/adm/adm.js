@@ -95,10 +95,18 @@ adm =(()=>{
 		.appendTo('#right')
 		.click(e=>{
 			e.preventDefault()
-			$.getJSON(_+'/atricles/remove/table',d=>{
+			$.getJSON(_+'/articles/drop/table',d=>{
 				if(d.msg==='success'){
 					alert('게시판 데이터베이스 제거 완료 ')}
 				else {alret('게시판 데이터베이스 제거 실패 ')}
+			})
+		})
+		$('<a>커뮤니티 정보  입력</a></br>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/tx/write/info',d=>{
+				alert('게시판 글 개수 '+d.articleCount)
 			})
 		})
 	}
@@ -265,13 +273,14 @@ adm =(()=>{
 				'<form id="crawl_form">'+
 				'  <select name="web" size="1">'+
 				'  </select>'+
-				'   <input type="url" placeholder="insert URL" action="https://www.naver.com" value="https://www.naver.com">'+
+				'   <input type="url" placeholder="insert URL" action="https://www.naver.com" value="스톤애견풀빌라">'+
 				'</form>').appendTo('#right')
 		$('#crawl_form input[type="url"]').css({width :'60%'})
 		let crawl = [{value : 'naver.com' ,url : 'https://www.naver.com'},
 					 {value : 'google.com' ,url : 'https://www.naver.com'},
 					 {value : 'daum.com' ,url: 'https://www.naver.com'},
-					 {value : 'youtube.com',url : 'https://www.naver.com'}]
+					 {value : 'youtube.com',url : 'https://www.naver.com'},
+					 {value : '기타'}]
 		$.each(crawl,(i,j)=>{
 			$('<option value="'+j.value+'">'+j.value+'</option>')
 			.appendTo('#crawl_form select')
