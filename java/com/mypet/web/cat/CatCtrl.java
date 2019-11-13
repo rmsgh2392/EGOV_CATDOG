@@ -20,7 +20,7 @@ import com.mypet.web.enums.SQL;
 
 
 @RestController
-@RequestMapping("/cat")
+@RequestMapping("/cats")
 
 public class CatCtrl {
 	private static final Logger Logger = LoggerFactory.getLogger(CatCtrl.class);
@@ -28,15 +28,16 @@ public class CatCtrl {
 	@Autowired Cat cat;
 //	@Autowired Printer printer;
 	@Autowired CatMapper catMapper;
-	@PostMapping("/")
+	
+	@GetMapping("/")
 	public Map<?,?> register(@RequestBody Cat param) {
 //		Logger.info("AJAX가 보낸 아이디 & 비번 {}", param.getUid()+", "+ param.getPwd()+", "+ param.getPname());
 		System.out.println("람다 프린터가 출력한 값 "+ param.getBirth()+", "+ param.getSex()+", "+ param.getName()
-		+", "+ param.getHairlength()+", "+ param.getHaircolor()+", "+ param.getSpecies()+", "+ param.getSize()+", "+ param.getCharacter()+", "+ param.getIllhistory());
+		+", "+ param.getHairlength()+", "+ param.getHaircolor()+", "+ param.getSpecies()+", "+ param.getSize()+", "+ param.getSize()+", "+ param.getIllhistory());
 		Consumer<Cat> c = o -> catMapper.registerCat(param);
 		c.accept(param);
 		map.clear();
-		map.put("msg", "Success");
+		map.put("msg", "success");
 		return map;
 	}
 	@PutMapping("/update/cat")

@@ -163,6 +163,39 @@ brd = (()=>{
 		})
 		$('<input>',{
 			style : 'float:right;width:100px;margin-right:10px',
+			value : "파일 업로드"
+		})
+		.addClass('btn btn-warning')
+		.appendTo('#write_form')
+		.click(e=>{
+			e.preventDefault()
+			alert('파일 업로드')
+			let formData = new FormData()
+			let inputFile = $("#upload")
+			let files = inputFile[0].files
+			let i =0
+			for(;i<files.length;i++){
+				formData.append('uploadFile', files[i])
+			}
+			$.ajax({
+				url : sessionStorage.getItem('ctx')+'/articles/fileupload',
+				type : 'POST',
+				processData : false,
+				contentType : false,
+				data : formData,
+				success : d=>{
+					alert('파일 업로드 성공')
+				},
+				error : e=>{
+					alert('파일 업로드 실패 ')
+				}
+				
+			})
+			alert(inputFile)
+		})
+		//전송 
+		$('<input>',{
+			style : 'float:right;width:100px;margin-right:10px',
 			value : '전송',
 			type : 'submit',
 		
@@ -196,6 +229,25 @@ brd = (()=>{
 				}
 			})
 		})
+		$('<input>',{
+			type : 'file',
+			id : 'upload'
+		})
+		.appendTo('#write_form')
+//		$('<input id="fileupload">',{
+//			style : 'float:right;width:100px;margin-right:10px',
+//			value : '파일업로드',
+//		})
+//		.addClass('btn btn-warning')
+//		.appendTo('#write_form')
+//		.click(()=>{
+//			alert('파일 업로드')
+//			let formData = new FormData()
+//			let inputFile = $("#fileupload")
+//			let files = fileupload[0].files
+//		}).appendTo("#write_form")
+//		$('<input type="file" name="fileupload" multiple/>')
+//		.appendTo("#write_form")
 		
 	}
 

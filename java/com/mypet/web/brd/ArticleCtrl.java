@@ -1,5 +1,7 @@
 package com.mypet.web.brd;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -19,9 +21,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.mypet.web.pxy.PageProxy;
 import com.mypet.web.pxy.Proxy;
 import com.mypet.web.pxy.Trunk;
+import com.mypet.web.enums.Path;
 import com.mypet.web.enums.SQL;
 import com.mypet.web.pxy.Box;
 
@@ -70,7 +75,6 @@ public class ArticleCtrl {
 		pager.setPageNum(proxy.parseInt(pageNo));
 		pager.setPageSize(proxy.parseInt(pageSize));
 		pager.paging();
-		//하기전에 깨끗이 클리어하고 하자 !!
 		box.clear();
 		Supplier<List<Articles>> s = ()-> articleMapper.selectAllArticle(pager);//제네릭스 안에 제네릭스가 들어갈 수 있다.
 		System.out.println("해당페이지 :\n"+ s.get());
@@ -118,8 +122,21 @@ public class ArticleCtrl {
 		//path중에서 바뀔 수 있는 부분 
 
 	}
-	@GetMapping("/fileupload")
-	public void upload() {
+	
+	@PostMapping("/fileupload")
+	public void fileupload(MultipartFile[] uploadFile) {
+		System.out.println("파일업로드 컨트롤러 들어옴");
+		String uploadFolder = Path.UPLOAD_PATH.toString();
+		for(MultipartFile f : uploadFile) {
+			String fname = f.getOriginalFilename();
+			fname = fname.substring(fname.lastIndexOf("\\")+1);
+			File saveFile = new File(uploadFolder,fname);
+			try {
+				f.transferTo(saveFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		System.out.println("파일 업로드 들어옴");
 	}
 }

@@ -8,9 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mypet.web.brd.ArticleMapper;
+import com.mypet.web.cat.CatMapper;
+import com.mypet.web.dog.DogMapper;
 import com.mypet.web.pxy.ArticleProxy;
 import com.mypet.web.pxy.Box;
+import com.mypet.web.pxy.CatProxy;
 import com.mypet.web.pxy.CrawlingProxy;
+import com.mypet.web.pxy.DogProxy;
 import com.mypet.web.pxy.UserProxy;
 import com.mypet.web.usr.User;
 import com.mypet.web.usr.UserMapper;
@@ -27,6 +31,10 @@ public class TxService {
 	@Autowired Box<String> box;
 	@Autowired ArticleProxy comm;
 	@Autowired ArticleMapper articleMapper;
+	@Autowired CatProxy catProxy;
+	@Autowired CatMapper catMapper;
+	@Autowired DogProxy dogProxy;
+	@Autowired DogMapper dogMapper;
 
 	
 	@SuppressWarnings("unchecked")//노란불 뜨면 그냥 잡아서 실행하면 됨
@@ -48,6 +56,16 @@ public class TxService {
 	public int registerUsers(){
 		manager.insertUsers();
 		return userMapper.countUsers();
+	}
+	@Transactional
+	public int registerCats() {
+		catProxy.insertCats();
+		return catMapper.countCats();
+	}
+	@Transactional
+	public int registerDogs() {
+		dogProxy.insertDogs();
+		return dogMapper.countDogs();
 	}
 	public int trucateUser() {
 		manager.truncateUsers();

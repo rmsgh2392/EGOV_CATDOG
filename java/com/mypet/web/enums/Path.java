@@ -9,6 +9,7 @@ public enum Path {
 		switch (this) {
 		case UPLOAD_PATH:
 			result =
+//			String.format("C:%sUsersrmsgh2392\\workspace\\eGovFrame-3.8\\workspace\\mypet\\src\\main\\webapp\\resources\\upload\\temp", args)
 			"C:\\Users\\rmsgh2392\\workspace\\eGovFrame-3.8\\workspace\\mypet\\src\\main\\webapp\\resources\\upload\\temp";
 			break;
 		case CRAWLING_TARGET:

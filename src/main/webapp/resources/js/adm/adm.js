@@ -46,8 +46,8 @@ adm =(()=>{
 		let arr = [{txt :'웹크롤링',name:'web_crawling'}
 				  ,{txt :'고객관리',name:'users_mgmt'}
 				  ,{txt :'커뮤니티관리',name:'comm_mgmt'}
-				  ,{txt :'상품조회',name:'item_srch'}
-				  ,{txt :'상품수정',name:'item_mod'}
+				  ,{txt :'고양이관리',name:'cat_mgmt'}
+				  ,{txt :'강아지관리',name:'dog_mgmt'}
 				  ,{txt :'상품삭제',name:'item_del'}]//json인데 list
 		$.each(arr,(i,j)=>{
 			$('<div name="'+j.name+'">'+j.txt+'</div>')
@@ -64,9 +64,11 @@ adm =(()=>{
 				case 'comm_mgmt' :
 					comm_mgmt()
 					break
-				case 'item_srch' :
+				case 'cat_mgmt' :
+					cat_mgmt()
 					break
-				case 'item_mod' :
+				case 'dog_mgmt' :
+					dog_mgmt()
 					break
 				case 'item_del' :
 					break
@@ -77,6 +79,36 @@ adm =(()=>{
 //				alert(that+'메뉴클릭 -->')
 			})
 		})
+	}
+	let cat_mgmt =()=>{
+		alert('고양이 관리 들어옴')
+		$('#right').empty()
+		$('<a> 고양이 정보 입력</a></br>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/tx/register/cats',d=>{
+				if(d.msg==='success'){
+					alert('고양이 정보 입력 완료 ')}
+				else {alret('고양이 정보 입력 실패 ')}
+			})
+		})
+	
+	}
+	let dog_mgmt =()=>{
+		alert('강아지 관리 들어옴')
+		$('#right').empty()
+		$('<a> 강아지 정보 입력</a></br>')
+		.appendTo('#right')
+		.click(e=>{
+			e.preventDefault()
+			$.getJSON(_+'/tx/register/dogs',d=>{
+				if(d.msg==='success'){
+					alert('강아지 정보 입력 완료 ')}
+				else {alret('강아지 정보 입력 실패 ')}
+			})
+		})
+	
 	}
 	let comm_mgmt =()=>{
 		alert('게시판관리 들어옴')

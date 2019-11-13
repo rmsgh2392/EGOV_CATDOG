@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Cat{
-	private String birth, sex, name, hairlength, haircolor, species, size, character, illhistory;
+	private String birth, sex, name, hairlength, haircolor, species, size, style, illhistory;
 }
