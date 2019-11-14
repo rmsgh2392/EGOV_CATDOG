@@ -1,5 +1,8 @@
 package com.mypet.web.pxy;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
@@ -32,6 +35,12 @@ public class Proxy {
 //		Function<Integer,int[]> f = t -> new int[t]; --> 메서드만 참조하면 아래와 같이 해줄 수 있음!!
 		Function<Integer,int[]> f = int[]::new;
 		return f.apply(size);
+	}
+	public String currentDate() {
+		return  new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+	}
+	public String currendTime() {
+		return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
 	}
 }
 

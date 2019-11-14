@@ -29,6 +29,7 @@ import com.mypet.web.pxy.Trunk;
 import com.mypet.web.enums.Path;
 import com.mypet.web.enums.SQL;
 import com.mypet.web.pxy.Box;
+import com.mypet.web.pxy.FileProxy;
 
 //import com.mypet.web.util.Printer;
 
@@ -42,7 +43,7 @@ public class ArticleCtrl {
 	@Autowired PageProxy pager;
 	@Autowired Proxy proxy;
 	@Autowired Trunk<Object> trunk; // Trunk<Object> trunk에서 Object를 넣어주면 트렁크 안에 있는 모든 메서드들의 <T>로 선언된 곳의 Object가 들어간다. 
-	
+	@Autowired FileProxy filemgr;
 	@PostMapping("/")
 	public Map<?,?> UpdateWrite(@RequestBody Articles param ) {
 		//파라미터와 리턴 사이에 =>에로우펑션을 쓴다. 람다 ~~
@@ -126,19 +127,22 @@ public class ArticleCtrl {
 	@PostMapping("/fileupload")
 	public void fileupload(MultipartFile[] uploadFile) {
 		System.out.println("파일업로드 컨트롤러 들어옴");
-		String uploadFolder = Path.UPLOAD_PATH.toString();
-		for(MultipartFile f : uploadFile) {
-			String fname = f.getOriginalFilename();
-			fname = fname.substring(fname.lastIndexOf("\\")+1);
-			File saveFile = new File(uploadFolder,fname);
-			try {
-				f.transferTo(saveFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		System.out.println("파일 업로드 들어옴");
+		filemgr.fileupload(uploadFile);
+		
 	}
+//	private void fileupload(MultipartFile[] uploadFile) {
+//		String uploadFolder = Path.UPLOAD_PATH.toString();
+//		for(MultipartFile f : uploadFile) {
+//			String fname = f.getOriginalFilename();
+//			fname = fname.substring(fname.lastIndexOf("\\")+1);
+//			File saveFile = new File(uploadFolder,fname);
+//			try {
+//				f.transferTo(saveFile);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 }
 
 

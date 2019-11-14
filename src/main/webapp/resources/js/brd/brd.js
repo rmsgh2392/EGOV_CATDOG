@@ -175,6 +175,10 @@ brd = (()=>{
 			let files = inputFile[0].files
 			let i =0
 			for(;i<files.length;i++){
+//				if(!$.fn.checkExtension({fname : files[i].name, fsize : files[i].size})){
+//			    //if(!new CheckExtension({fname : files[i].name, fsize : files[i].size}))
+//					return false
+//				}
 				formData.append('uploadFile', files[i])
 			}
 			$.ajax({
